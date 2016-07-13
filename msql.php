@@ -38,13 +38,13 @@ function editar($id,$campos,$tabla) {
 		$variables = '';
 		foreach ($campos as $clave => $valor) {
 			if ($i == 0) {
-				$variables .= "$clave = $valor";
+				$variables .= "$clave = '$valor'";
 			} else {
-				$variables .= ",$clave = $valor";
+				$variables .= ",$clave = '$valor'";
 			}
 			$i++;
 		}
-		$query="UPDATE TABLE $tabla set  $variables where id = $id";
+		$query="UPDATE $tabla set  $variables where id = $id";
 		if (! $mysqli->query($query)) {
 			error_log("ERROR: No se pudo ejecutar $query. " . $mysqli->error,0);
 			echo "<p class=failure>¡Error al agregar el comentario al realizar query!</p>";
@@ -122,6 +122,7 @@ function mostrar($numpag,$regpp,$campos,$tabla,$where='') {
 			}
 			if ($tabla == "tarea") {
 				echo "<th>Borrar</th>";
+				echo "<th>Editar</th>";
 			}
 			echo "</tr>";
 			$i = 0;
@@ -136,6 +137,7 @@ function mostrar($numpag,$regpp,$campos,$tabla,$where='') {
 				}
 				if($tabla == 'tarea') {
 					echo "<td><a href='index.php?pag=tarea&tareaid=".$row[0]."&msg=del'>Borrar</a></td>";
+					echo "<td><a href='index.php?pag=tarea&tareaid=".$row[0]."&msg=editar'>Editar</a></td>";
 				}
 				echo "</tr>\n";
 				$i++;

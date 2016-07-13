@@ -9,18 +9,18 @@ function borrartarea($tareaid) {
 
 function editartarea($tareaid,$nombre,$texto,$userid,$proyectid) {
 	$tarea = sobject('tarea',$tareaid);
-	if ($nombre != $tarea->nombre) {
+	if (isset($nombre) && ($nombre != $tarea->nombre)) {
 		$campos['nombre'] = $nombre;
 	}
 	$texto = trim($texto);
 	$texto = nl2br($texto);
-	if ($texto != $tarea->descripcion) {
+	if (isset($texto) && ($texto != $tarea->descripcion)) {
 		$campos['descripcion'] = $texto;
 	}
-	if ($userid != $tarea->userid) {
+	if (isset($userid) && ($userid != $tarea->userid)) {
 		$campos['userid'] = $userid;
 	}
-	if ($proyectid != $tarea->proyectid) {
+	if (isset($proyectid) && ($proyectid != $tarea->proyectid)) {
 		$campos['proyectid'] = $proyectid;
 	}
 	$tabla = 'tarea';
@@ -70,6 +70,31 @@ if ($msg == 'add') {
 		}
 } else if ($msg == 'del') {
 	borrartarea($tareaid);
+} else if ($msg == 'edit') {
+	if ($tareaid && $nombre && $texto && $userid && $proyectid) {
+		editartarea($tareaid,$nombre,$texto,$userid,$proyectid);
+	} else {
+		if (!$nombre) {
+			$error['nombre']=1;
+		}
+		if (!$texto) {
+			$error['descripcion']=1;
+		}
+		if (!$userid) {
+			$error['userid'] = 1;
+		}
+		if (!$proyectid) {
+			$error['proyectid'] = 1;
+		}
+	}
+}
+
+if ($msg == 'editar') {
+	$tarea = sobject('tarea',$tareaid);
+	$nombre = $tarea->nombre;
+	$texto = $tarea->descripcion;
+	$userid = $tarea->userid;
+	$proyectid = $tarea->proyectid;
 }
 include('./scripts.php');
 ?>
@@ -108,9 +133,18 @@ include('./scripts.php');
 	paginas(isset($numpag) ? $numpag : 1,6,'tarea','tarea',0,$status);
 ?>
 <br>
-<p>Agregar tarea</p>
+<?php
+	if ($msg == 'editar') {
+		$titulo = 'Editar Tarea';
+		$msgf = '&msg=edit&tareaid='.$tareaid;
+	} else {
+		$titulo = 'Agregar Tarea';
+		$msgf = '&msg=add';
+	}
+?>
+<p><?php echo $titulo ?></p>
 
-<form name="fcont" method="post" action="./index.php?pag=tarea&msg=add" >
+<form name="fcont" method="post" action="./index.php?pag=tarea<?php echo $msgf  ?>"	>
 	<table width="100%">
 		<tr><td>Nombre</td><td><input name="nombre" id="nombre" type="text" size="60" maxlength="100" value="<?php echo $nombre ?>">
 			<?php errorform($error,'nombre'); ?>
