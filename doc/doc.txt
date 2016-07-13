@@ -1,0 +1,5 @@
+20-5-2016
+
+Se agrega columna status a la tabla tarea:
+Si status = 0:tarea sin comenzar, 1:tarea comenzada, 2:tarea finalizada, 3:esperando definiciones.
+
