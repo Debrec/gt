@@ -78,8 +78,17 @@ function mostraractividad($numpag,$regpp,$tareaid) {
 	mostrar($numpag,$regpp,$campos,$tabla," tareaid = $tareaid ");
 }
 
+function checkst($status,$error) {
+	if (isset($status) && (($status == 0) || ($status == 1) || ($status == 2) || ($status == 3))) {
+		return 1;
+	} else {
+		$error['status'] = 1;
+		return 0;
+	}
+}
+
 if ($msg == 'add') {
-	if ($nombre && $texto && $useridl && $tareaid && isset($status)) {
+	if ($nombre && $texto && $useridl && $tareaid && checkst($status,$error)) {
 		agregaractividad($nombre,$texto,$useridl,$tareaid,$status);
 	} else {
 		if (!$nombre) {

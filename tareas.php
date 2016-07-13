@@ -79,7 +79,7 @@ include('./scripts.php');
 <form name="statusf" method="post" action="./index.php?pag=tarea">
 	<table width="100%">
 		<tr><td>
-			<select name="status">
+			<select name="status" onchange="this.form.submit()">
 				<?php
 				$vars = array();
 				$vars[0] = "Tarea Sin Comenzar";
@@ -95,7 +95,7 @@ include('./scripts.php');
 				}
 				?>
 			</select>
-			<input type="submit" value="Enviar">
+			<!--<input type="submit" value="Enviar">-->
 		</td></tr>
 	</table>
 </form>
