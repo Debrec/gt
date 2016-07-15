@@ -58,7 +58,7 @@
             $_SESSION['userid'] = $result->id;
             header("location:index.php");
         } else {
-            echo '<div class="failure">Su usuario es incorrecto, intente nuevamente.</div>';
+            echo '<p class="failure">Su usuario es incorrecto, intente nuevamente.</p>';
         }
     }
 ?>
