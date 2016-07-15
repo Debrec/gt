@@ -36,9 +36,7 @@
 
 	function verificar_login($user,$password,&$result) {
 			include('./conectar.php');
-    	//$sql = "SELECT * FROM usuarios WHERE usuario = '$user' and password = '$password'";
 			$sql = "SELECT * FROM usuarios WHERE email = '$user' and psw =password('$password')";
-			echo $sql;
     	$rec = $mysqli->query($sql);
     	$count = 0;
 
