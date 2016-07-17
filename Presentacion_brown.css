@@ -107,6 +107,8 @@ a:active  {color:#FFFFFF; text-decoration:underline;}
 
 form {margin-left:20%; margin-right:20%; background-color:#808080; }
 
+#statusf {margin-left:5%; margin-right:0%; background-color:#808080}
+
 form.login {
     background: none repeat scroll 0 0 #F1F1F1;
     border: 1px solid #DDDDDD;

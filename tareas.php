@@ -101,7 +101,7 @@ include('./scripts.php');
 
 <h1 class="subt">Tareas</h1>
 <p>Tareas</p>
-<form name="statusf" method="post" action="./index.php?pag=tarea">
+<form id='statusf' name="statusf" method="post" action="./index.php?pag=tarea">
 	<table width="100%">
 		<tr><td>
 			<select name="status" onchange="this.form.submit()">
