@@ -104,11 +104,18 @@ function mostrar($numpag,$regpp,$campos,$tabla,$where='') {
 		}
 		$i++;
 	}
+	if ($tabla == 'actividad') {
+		$variables .= ',timestampdiff(SECOND,fecha_inicio,fecha_fin)';
+	}
+
 	$query = "SELECT" . " $variables FROM  $tabla";
 	if ($where) {
 		$query .= " where $where ";
 	}
-	if ($tabla != 'usuarios') {
+	
+	if ($tabla == 'actividad') {
+		$query .= " order by fecha_inicio desc ";
+	} else if ($tabla != 'usuarios') {
 		$query .= " order by fecha desc ";
 	}
 
@@ -120,7 +127,9 @@ function mostrar($numpag,$regpp,$campos,$tabla,$where='') {
 			foreach ($campos as $clave => $valor) {
 				echo "<th>$clave</th>";
 			}
-			if ($tabla == "tarea") {
+			if ($tabla == "actividad") {
+				echo "<th>Duración</th>";
+			} else if ($tabla == "tarea") {
 				echo "<th>Borrar</th>";
 				echo "<th>Editar</th>";
 			}
@@ -134,6 +143,9 @@ function mostrar($numpag,$regpp,$campos,$tabla,$where='') {
 					} else {
 						echo "<td>".$row[$j]."</td>";
 					}
+				} 
+				if ($tabla == 'actividad') {
+					echo "<td>".gmdate("H:i:s",$row[count($campos)])."</td>";				
 				}
 				if($tabla == 'tarea') {
 					echo "<td><a href='index.php?pag=tarea&tareaid=".$row[0]."&msg=del'>Borrar</a></td>";

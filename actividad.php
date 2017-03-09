@@ -55,7 +55,10 @@
 	</form>
 <?php } ?>
 <?php
+
 function agregaractividad($nombre,$texto,$userid,$tareaid,$status) {
+	$campos['fecha_inicio']=obtener_fecha();
+	$campos['fecha_fin']=date("Y-m-d H:i:s");
 	$campos['titulo'] = $nombre;
 	$texto = trim($texto);
 	$texto = nl2br($texto);
@@ -67,11 +70,13 @@ function agregaractividad($nombre,$texto,$userid,$tareaid,$status) {
 	if ($status == 0) {
 		modificarstatus($tareaid,1);
 	}
+	inicio_actividad();
 }
 
 function mostraractividad($numpag,$regpp,$tareaid) {
 	$campos['id'] = 0;
-	$campos['fecha'] = 0;
+	$campos['fecha_inicio'] = 0;
+	$campos['fecha_fin']=0;
 	$campos['titulo'] = 0;
 	$campos['descripcion'] = 0;
 	$tabla = 'actividad';
@@ -120,8 +125,54 @@ echo '<form name="fcont" method="post"
  action="./index.php?pag=actividad&msg=add&tareaid='.$tareaid.'">';
 ?>
 	<table width="100%">
-		<tr><td>Nombre</td><td><input name="nombre" id="nombre" type="text" size="60" maxlength="100" value="<?php echo $nombre ?>"><?php errorform($error,'nombre'); ?></td></tr>
+		<tr><td>Nombre</td><td><input name="nombre" id="nombre" type="text" size="50" maxlength="100" value="<?php echo $nombre ?>"><?php errorform($error,'nombre'); ?></td></tr>
 		<tr><td>Descripcion</td><td><textarea name="descripcion" title="descripcion" maxlength="1000" cols="50" rows="10" label="Descripcion"><?php echo $texto ?></textarea><?php errorform($error,'descripcion'); ?></td></tr>
+		<tr><td>Fecha Fin:</td><td>
+			<span>Año : 
+				<select name="anofin">	
+					<?php 
+						$cur=date("Y");
+						if (date("m")==1) {
+							$prev=$cur-1;
+							echo "<option value=$prev>$prev</option>";
+						}
+						echo "<option selected value=$cur>$cur</option>";
+					?>
+				</select>
+			</span> 
+			<span> Mes : 
+				<select name="mesfin">
+					<?php 
+						$cur=date("m");
+						if (date("d")==1) {
+							$prev=$cur-1;
+							echo "<option value=$prev>$prev</option>";
+						}
+						echo "<option value=$cur>$cur</option>";
+					?>					
+				</select>	
+			</span>
+			<span> Día : 
+				<select name="diafin">
+					<?php 
+						$cur=date("d");
+						$prev=$cur-1;
+						echo "<option value=$prev>$prev</option>";
+						echo "<option selected value=$cur>$cur</option>";
+					?>					
+				</select>	
+			</span>
+			<span> Hora : 
+				<select name="horafin">
+					<?php 
+						$cur=date("H");
+						for ($i=0;$i<=$cur;$i++) {
+							echo "<option value=$i>$i</option>";
+						}
+					?>					
+				</select>	
+			</span>
+		</td></tr>		
 		<tr><td><input type="submit" value="Enviar"></td><td>Finalizar Tarea<input type="checkbox" name="ftarea"></td></tr>
 	</table>
 </form>

@@ -28,6 +28,7 @@ function editartarea($tareaid,$nombre,$texto,$userid,$proyectid) {
 }
 
 function agregartarea($nombre,$texto,$userid,$proyectid) {
+	$campos['fecha']=date("Y-m-d H:i:s");
 	$campos['nombre'] = $nombre;
 	$texto = trim($texto);
 	$texto = nl2br($texto);
@@ -146,7 +147,7 @@ include('./scripts.php');
 
 <form name="fcont" method="post" action="./index.php?pag=tarea<?php echo $msgf  ?>"	>
 	<table width="100%">
-		<tr><td>Nombre</td><td><input name="nombre" id="nombre" type="text" size="60" maxlength="100" value="<?php echo $nombre ?>">
+		<tr><td>Nombre</td><td><input name="nombre" id="nombre" type="text" size="50" maxlength="100" value="<?php echo $nombre ?>">
 			<?php errorform($error,'nombre'); ?>
 		</td></tr>
 		<tr><td>Descripcion</td><td><textarea name="descripcion" title="descripcion" maxlength="1000" cols="50" rows="10" label="Descripcion"><?php echo $texto ?></textarea>

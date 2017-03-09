@@ -53,14 +53,14 @@
 	}
 
 	if(!isset($_SESSION['userid'])) {
-    if(isset($_POST['login'])) {
-        if(verificar_login($_POST['user'],$_POST['password'],$result) == 1) {
-            $_SESSION['userid'] = $result->id;
-            header("location:index.php");
-        } else {
-            echo '<p class="failure">Su usuario es incorrecto, intente nuevamente.</p>';
-        }
-    }
+		if(isset($_POST['login'])) {
+			if(verificar_login($_POST['user'],$_POST['password'],$result) == 1) {
+				$_SESSION['userid'] = $result->id;
+				header("location:index.php");
+			} else {
+				echo '<p class="failure">Su usuario es incorrecto, intente nuevamente.</p>';
+			}
+		}
 ?>
 
 <form name="fcont" action="" method="post" class="login">
@@ -75,7 +75,7 @@
 	<?php include("./superior.php"); ?>
 </div>
 <div class=lateral>
-	<?php include('./lateral.php'); ?>
+	<?php include('./lateral.php');	?>
 </div>
 <div class=blanco>
 <?php

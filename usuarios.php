@@ -2,6 +2,7 @@
 
 include("./msql.php");
 function agregarusuario($nombre,$apellido,$email) {
+	$campos['fecha']=date("Y-m-d H:i:s");
 	$campos['nombres'] = $nombre;
 	$campos['apellido'] = $apellido;
 	$campos['email'] = $email;
@@ -18,10 +19,10 @@ function mostrarusuarios($numpag,$regpp) {
 }
 
 if ($msg == 'add') {
-	if (isset($nombre) && isset($apellido) && isset($email)) {
+	if (isset($nombres) && isset($apellido) && isset($email)) {
 		agregarusuario($nombres,$apellido,$email);
 	} else {
-		echo "Error al agregar usuario, campos incompletos";
+		echo "<h1>Error al agregar usuario, campos incompletos</h1>";
 	}
 }
 include('./scripts.php');
