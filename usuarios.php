@@ -1,6 +1,5 @@
 <?php
 
-//include("./msql.php");
 function agregarusuario($nombre,$apellido,$email) {
 	$campos['fecha']=date("Y-m-d H:i:s");
 	$campos['nombres'] = $nombre;

@@ -1,6 +1,4 @@
 <?php
-
-//include("./msql.php");
 $error = array();
 
 function borrartarea($tareaid) {
@@ -157,7 +155,7 @@ include('./scripts.php');
 			<td>
 				<select name="userid">
 					<?php
-						$usuarios=svariables('usuarios',0,3);
+						$usuarios=svariables('usuarios',0,4);
 						$userid = isset($userid)  ? $userid : $useridl;
 						foreach ($usuarios as $clave => $valor) {
 						echo "<option value='$clave'".(($userid == $clave) ? 'selected' : '').">$valor</option>\n";

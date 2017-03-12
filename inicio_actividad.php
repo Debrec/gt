@@ -1,5 +1,4 @@
 <?php
-	//include('msql.php');
 	function inicio_actividad($userid) {
 		if (isset($userid)) {
 			include('conectar.php');

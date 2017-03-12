@@ -1,6 +1,5 @@
 <h1>Tarea</h1>
 <?php
-	//include("./msql.php");
 	$error = array();
 	$email = selectfield('usuarios','email',$useridl);
 	$tarea = sobject('tarea',$tareaid);
@@ -57,14 +56,14 @@
 <?php
 
 function agregaractividad($nombre,$texto,$userid,$tareaid,$status,$fecha_inicio,$fecha_fin) {
-	/*$fecha_inicio = obtener_fecha($userid);
+	$fecha_ini = obtener_fecha($userid);
 	if (!isset($fecha_inicio)) {
 		return -1;
-	}*/
-	/*$campos['fecha_inicio']=$fecha_inicio;*/
-	//$campos['fecha_fin']=date("Y-m-d H:i:s");
-	$campos['fecha_inicio']=$fecha_inicio;
-	$campos['fecha_fin']=$fecha_fin;
+	}
+	$campos['fecha_inicio']=$fecha_ini;
+	$campos['fecha_fin']=date("Y-m-d H:i:s");
+	/*$campos['fecha_inicio']=$fecha_inicio;
+	$campos['fecha_fin']=$fecha_fin;*/
 	$campos['titulo'] = $nombre;
 	$texto = trim($texto);
 	$texto = nl2br($texto);
@@ -138,7 +137,7 @@ echo '<form name="fcont" method="post"
 	<table width="100%">
 		<tr><td>Nombre</td><td><input name="nombre" id="nombre" type="text" size="50" maxlength="100" value="<?php echo $nombre ?>"><?php errorform($error,'nombre'); ?></td></tr>
 		<tr><td>Descripcion</td><td><textarea name="descripcion" title="descripcion" maxlength="1000" cols="50" rows="10" label="Descripcion"><?php echo $texto ?></textarea><?php errorform($error,'descripcion'); ?></td></tr>
-		<tr><td>Fecha Inicio</td><td>
+		<!--<tr><td>Fecha Inicio</td><td>
 			<?php 
 				$fecha_inicio=selectfield('inicio_actividad','fecha',$useridl);
 				if (isset($fecha_inicio)) {
@@ -169,10 +168,9 @@ echo '<form name="fcont" method="post"
 						$diafin ? $diafin : date("d"),$horafin ? $horafin : date("H"),
 						$minfin ? $minfin : date("i"),$secfin ? $secfin : date("s")); 
 			?>
-		</td></tr>
+		</td></tr>-->
 		<tr><td><input type="submit" value="Enviar"></td><td>Finalizar Tarea<input type="checkbox" name="ftarea"></td></tr>
 	</table>
-	<?php fecha("test","2017","01","01","12","00","00"); ?>
 </form>
 
 
