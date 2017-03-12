@@ -1,6 +1,6 @@
 <h1>Tarea</h1>
 <?php
-	include("./msql.php");
+	//include("./msql.php");
 	$error = array();
 	$email = selectfield('usuarios','email',$useridl);
 	$tarea = sobject('tarea',$tareaid);
@@ -56,9 +56,15 @@
 <?php } ?>
 <?php
 
-function agregaractividad($nombre,$texto,$userid,$tareaid,$status) {
-	$campos['fecha_inicio']=obtener_fecha();
-	$campos['fecha_fin']=date("Y-m-d H:i:s");
+function agregaractividad($nombre,$texto,$userid,$tareaid,$status,$fecha_inicio,$fecha_fin) {
+	/*$fecha_inicio = obtener_fecha($userid);
+	if (!isset($fecha_inicio)) {
+		return -1;
+	}*/
+	/*$campos['fecha_inicio']=$fecha_inicio;*/
+	//$campos['fecha_fin']=date("Y-m-d H:i:s");
+	$campos['fecha_inicio']=$fecha_inicio;
+	$campos['fecha_fin']=$fecha_fin;
 	$campos['titulo'] = $nombre;
 	$texto = trim($texto);
 	$texto = nl2br($texto);
@@ -70,7 +76,7 @@ function agregaractividad($nombre,$texto,$userid,$tareaid,$status) {
 	if ($status == 0) {
 		modificarstatus($tareaid,1);
 	}
-	inicio_actividad();
+	inicio_actividad($userid);
 }
 
 function mostraractividad($numpag,$regpp,$tareaid) {
@@ -93,8 +99,13 @@ function checkst($status,$error) {
 }
 
 if ($msg == 'add') {
+	$fecha_inicio = sprintf("%s-%s-%s %s:%s:%s",$anoini,$mesini,$diaini,$horaini,$minini,$secini);
+	$fecha_fin = sprintf("%s-%s-%s %s:%s:%s",$anofin,$mesfin,$diafin,$horafin,$minfin,$secfin);
 	if ($nombre && $texto && $useridl && $tareaid && checkst($status,$error)) {
-		agregaractividad($nombre,$texto,$useridl,$tareaid,$status);
+		if(agregaractividad($nombre,$texto,$useridl,$tareaid,$status,$fecha_inicio,$fecha_fin) == -1) {
+			$error['fecha_inicio']=1;
+			echo "<p class=failure>Error al agregar actividad campos incorrectos</p>";
+		}
 	} else {
 		if (!$nombre) {
 			$error['nombre'] = 1;
@@ -127,52 +138,41 @@ echo '<form name="fcont" method="post"
 	<table width="100%">
 		<tr><td>Nombre</td><td><input name="nombre" id="nombre" type="text" size="50" maxlength="100" value="<?php echo $nombre ?>"><?php errorform($error,'nombre'); ?></td></tr>
 		<tr><td>Descripcion</td><td><textarea name="descripcion" title="descripcion" maxlength="1000" cols="50" rows="10" label="Descripcion"><?php echo $texto ?></textarea><?php errorform($error,'descripcion'); ?></td></tr>
+		<tr><td>Fecha Inicio</td><td>
+			<?php 
+				$fecha_inicio=selectfield('inicio_actividad','fecha',$useridl);
+				if (isset($fecha_inicio)) {
+					$ano = substr($fecha_inicio,0,4);
+					$mes = substr($fecha_inicio,5,2);
+					$dia = substr($fecha_inicio,8,2);
+					$hora = substr($fecha_inicio,11,2);
+					$min = substr($fecha_inicio,14,2);
+					$sec = substr($fecha_inicio,17,2);
+				} else {
+					$ano = date("Y");
+					$mes = date("m");
+					$dia = date("d");
+					$hora = date("H");
+					$min = date("i");
+					$sec = date("s");
+				}
+						
+			fecha("ini",$anoini ? $anoini : $ano,$mesini ? $mesini : $mes,
+						$diaini ? $diaini : $dia,$horaini ? $horaini : $hora,
+						$minini ? $minini : $min,$secini ? $secini : $sec); 
+			errorform($error,'fecha_inicio');
+			?>
+			</td>
+		</tr>
 		<tr><td>Fecha Fin:</td><td>
-			<span>Año : 
-				<select name="anofin">	
-					<?php 
-						$cur=date("Y");
-						if (date("m")==1) {
-							$prev=$cur-1;
-							echo "<option value=$prev>$prev</option>";
-						}
-						echo "<option selected value=$cur>$cur</option>";
-					?>
-				</select>
-			</span> 
-			<span> Mes : 
-				<select name="mesfin">
-					<?php 
-						$cur=date("m");
-						if (date("d")==1) {
-							$prev=$cur-1;
-							echo "<option value=$prev>$prev</option>";
-						}
-						echo "<option value=$cur>$cur</option>";
-					?>					
-				</select>	
-			</span>
-			<span> Día : 
-				<select name="diafin">
-					<?php 
-						$cur=date("d");
-						$prev=$cur-1;
-						echo "<option value=$prev>$prev</option>";
-						echo "<option selected value=$cur>$cur</option>";
-					?>					
-				</select>	
-			</span>
-			<span> Hora : 
-				<select name="horafin">
-					<?php 
-						$cur=date("H");
-						for ($i=0;$i<=$cur;$i++) {
-							echo "<option value=$i>$i</option>";
-						}
-					?>					
-				</select>	
-			</span>
-		</td></tr>		
+			<?php fecha("fin",$anofin ? $anofin : date("Y"),$mesfin ? $mesfin : date("m"),
+						$diafin ? $diafin : date("d"),$horafin ? $horafin : date("H"),
+						$minfin ? $minfin : date("i"),$secfin ? $secfin : date("s")); 
+			?>
+		</td></tr>
 		<tr><td><input type="submit" value="Enviar"></td><td>Finalizar Tarea<input type="checkbox" name="ftarea"></td></tr>
 	</table>
+	<?php fecha("test","2017","01","01","12","00","00"); ?>
 </form>
+
+

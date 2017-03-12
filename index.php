@@ -5,6 +5,8 @@
 		function asignar($var,$index) {
 			if (isset($var[$index])) {
 				return $var[$index];
+			} else {
+				return NULL;
 			}
 		}
 		$pag = asignar($_GET,"pag");
@@ -75,7 +77,11 @@
 	<?php include("./superior.php"); ?>
 </div>
 <div class=lateral>
-	<?php include('./lateral.php');	?>
+	<?php 
+		$useridl = asignar($_SESSION,'userid');
+		include("./msql.php");
+		include('./lateral.php');	
+	?>
 </div>
 <div class=blanco>
 <?php
@@ -90,7 +96,6 @@
 		$status = asignar($_POST,'status');
 		$ftarea = asignar($_POST,'ftarea');
 		$reabrir = asignar($_POST,'reabrir');
-		$useridl = asignar($_SESSION,'userid');
 		if (!isset($pag)) {
 			include('./tareas.php');
 		} else if ($pag == 'usuarios') {
@@ -100,6 +105,21 @@
 		} else if ($pag == 'tarea') {
 			include('./tareas.php');
 		} else if ($pag=='actividad') {
+			$anofin = asignar($_POST,'anofin');
+			$mesfin = asignar($_POST,'mesfin');
+			$diafin = asignar($_POST,'diafin');
+			$horafin = asignar($_POST,'horafin');
+			$minfin = asignar($_POST,'minfin');
+			$secfin = asignar($_POST,'secfin');
+			
+			
+			$anoini = asignar($_POST,'anoini');
+			$mesini = asignar($_POST,'mesini');
+			$diaini = asignar($_POST,'diaini');
+			$horaini = asignar($_POST,'horaini');
+			$minini = asignar($_POST,'minini');
+			$secini = asignar($_POST,'secini');
+
 			include('./actividad.php');
 		} else {
 			echo "<h1>seleccionar una opción</h1>";

@@ -1,5 +1,5 @@
 <?php
-include("./msql.php");
+//include("./msql.php");
 $error = array();
 function agregarproyecto($nombre,$comentario) {
 	$campos['fecha']=date("Y-m-d H:i:s");

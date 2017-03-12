@@ -192,9 +192,16 @@ function sobject($table,$id) {
 	}
 }
 
-function selectfield($table,$campo,$id) {
+function selectfield($table,$campo,$id=NULL) {
 	include('./conectar.php');
-	$query = "select $campo from $table where id=$id";
+	$query = "select $campo from $table";
+	if (isset($id)) {
+		if ($table == "inicio_actividad") {
+			$query.= " where userid=$id";		
+		} else {
+			$query.= " where id=$id";
+		}
+	}
 	if ($result = $mysqli->query($query)) {
 		$variable=$result->fetch_array()[0];
 		$mysqli->close();

@@ -1,6 +1,6 @@
 <?php
 
-include("./msql.php");
+//include("./msql.php");
 $error = array();
 
 function borrartarea($tareaid) {
