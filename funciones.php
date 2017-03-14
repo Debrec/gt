@@ -64,9 +64,9 @@ function diadelmes($ano,$mes) {
 }
 
 function fecha($cod,$ano, $mes,$dia,$hora,$min,$sec) {
-			$anoa = "2017"; //date("Y");
-			$mesa = "01";//date("m");
-			$diaa = "01"; //date("d");
+			$anoa = date("Y");
+			$mesa = date("m");
+			$diaa = date("d");
 			
 			echo "<span> Año : ";
 			echo "<select name=\"ano$cod\" onchange=\"this.form.submit()\">\n";	
@@ -199,6 +199,112 @@ function fecha($cod,$ano, $mes,$dia,$hora,$min,$sec) {
 			echo "</select>\n";
 			echo "</span>\n";
 }
+
+
+function horas($cod,$hora,$min,$sec) {
+			$curh = date("H");			
+			$curm = date("i");
+			$curs = date("s");
+			
+			echo "<span> Hora : ";
+			echo "<select id=\"hora$cod\" name=\"hora$cod\" onchange=\"updatehoras('$cod',$curh,$curm,$curs);\">\n";
+				/*if ($hora < $horaa) {			
+					$sel = $hora;
+					$svh = 1;
+				} else {
+					$sel = $horaa;
+					$svh=0;
+				}
+				$fin = $horaa;		
+				for ($i=0;$i<=$fin;$i++) {
+					if ($i<10) {
+						$val=sprintf("0%s",$i);
+					} else {
+						$val=$i;
+					}
+					echo "<option ".($i==$sel ? "selected" : "" )." value=$val>$val</option>";
+				}*/
+			echo "</select>\n";
+			echo "</span>\n";
+			
+			echo "<span> Minutos : ";
+			echo "<select id=\"min$cod\" name=\"min$cod\" onchange=\"updatehoras('$cod',$curh,$curm,$curs);\">\n";
+				/*if ($svh) {
+					$fin = 59;
+					$sel = $min;
+					$svm=1;
+				} else {
+					$fin = $mina;
+					if ($min <$fin) {
+						$svm=1;
+						$sel = $min;
+					} else {
+						$svm=0;
+						$sel=$mina;
+					}
+				}
+				
+				/*if ($svh && ($min <= $fin)) {
+					$sel = $min;
+				} else if ($svh && ) {
+					if ($min <= $fin) {
+					$sel = $min;
+					$svm=0;
+				}*//*
+				for ($i=0;$i<=$fin;$i++) {
+					if ($i<10) {
+						$val=sprintf("0%s",$i);
+					} else {
+						$val=$i;
+					}
+					echo "<option ".($i==$sel ? "selected" : "" )." value=$val>$val</option>";
+				}*/
+			echo "</select>\n";
+			echo "</span>\n";
+			
+			echo "<span> Segundos : ";
+			echo "<select id=\"sec$cod\" name=\"sec$cod\">\n";
+				/*if ($svm) {
+					$fin = 59;
+					$sel = $sec;
+				} else {
+					$fin = $seca;
+					if ($sec <$fin) {
+						$sel = $sec;
+					} else {
+						$sel=$seca;
+					}
+				}
+				/*if ($svh || $svm) {
+					$fin = 59;
+				} else {
+					$fin = $seca;
+				}
+				
+				if ($sec <= $fin) {
+					$sel = $sec;
+				} else {
+					$sel = $seca;
+				}
+
+/*				if ($sec < $seca) {			
+					$sel = $sec;
+				} else {
+					$sel = $seca;
+				}
+				$fin = $seca;*/		/*
+				for ($i=0;$i<=$fin;$i++) {
+					if ($i<10) {
+						$val=sprintf("0%s",$i);
+					} else {
+						$val=$i;
+					}
+					echo "<option ".($i==$sel ? "selected" : "" )." value=$val>$val</option>";
+				}*/
+			echo "</select>\n";
+			echo "</span>\n";
+}
 ?>
+
 
 

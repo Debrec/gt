@@ -79,8 +79,11 @@ function agregar($campos,$tabla) {
 		if (! $mysqli->query($query)) {
 			error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
 			echo "<p class=failure>¡Error al agregar el comentario al realizar query!</p>";
+			$mysqli->close();
+			return -1;
 		} else {
 			echo "<p class=succes>¡Se ha agregado con éxito!</p>";
+			return 0;
 		}
 	} else {
 		echo "<p class=failure>¡Error al agregar el comentario!</p>";

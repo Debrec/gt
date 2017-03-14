@@ -56,14 +56,14 @@
 <?php
 
 function agregaractividad($nombre,$texto,$userid,$tareaid,$status,$fecha_inicio,$fecha_fin) {
-	$fecha_ini = obtener_fecha($userid);
+	/*$fecha_ini = obtener_fecha($userid);
 	if (!isset($fecha_inicio)) {
 		return -1;
-	}
-	$campos['fecha_inicio']=$fecha_ini;
-	$campos['fecha_fin']=date("Y-m-d H:i:s");
-	/*$campos['fecha_inicio']=$fecha_inicio;
-	$campos['fecha_fin']=$fecha_fin;*/
+	}*/
+	/*$campos['fecha_inicio']=$fecha_ini;
+	$campos['fecha_fin']=date("Y-m-d H:i:s");*/
+	$campos['fecha_inicio']=$fecha_inicio;
+	$campos['fecha_fin']=$fecha_fin;
 	$campos['titulo'] = $nombre;
 	$texto = trim($texto);
 	$texto = nl2br($texto);
@@ -71,7 +71,9 @@ function agregaractividad($nombre,$texto,$userid,$tareaid,$status,$fecha_inicio,
 	$campos['userid'] = $userid;
 	$campos['tareaid'] = $tareaid;
 	$tabla = 'actividad';
-	agregar($campos,$tabla);
+	if (agregar($campos,$tabla)==-1) {
+		return -1;
+	}
 	if ($status == 0) {
 		modificarstatus($tareaid,1);
 	}
@@ -104,7 +106,7 @@ if ($msg == 'add') {
 		if(agregaractividad($nombre,$texto,$useridl,$tareaid,$status,$fecha_inicio,$fecha_fin) == -1) {
 			$error['fecha_inicio']=1;
 			echo "<p class=failure>Error al agregar actividad campos incorrectos</p>";
-		}
+		} 	
 	} else {
 		if (!$nombre) {
 			$error['nombre'] = 1;
@@ -137,6 +139,50 @@ echo '<form name="fcont" method="post"
 	<table width="100%">
 		<tr><td>Nombre</td><td><input name="nombre" id="nombre" type="text" size="50" maxlength="100" value="<?php echo $nombre ?>"><?php errorform($error,'nombre'); ?></td></tr>
 		<tr><td>Descripcion</td><td><textarea name="descripcion" title="descripcion" maxlength="1000" cols="50" rows="10" label="Descripcion"><?php echo $texto ?></textarea><?php errorform($error,'descripcion'); ?></td></tr>
+		<tr><td>Hora Inicio : </td><td>
+			<?php
+				$fecha_inicio=selectfield('inicio_actividad','fecha',$useridl);
+				if (isset($fecha_inicio)) {
+					$ano = substr($fecha_inicio,0,4);
+					$mes = substr($fecha_inicio,5,2);
+					$dia = substr($fecha_inicio,8,2);
+					$hora = substr($fecha_inicio,11,2);
+					$min = substr($fecha_inicio,14,2);
+					$sec = substr($fecha_inicio,17,2);
+				} else {
+					$ano = date("Y");
+					$mes = date("m");
+					$dia = date("d");
+					$hora = date("H");
+					$min = date("i");
+					$sec = date("s");
+				}
+				horas("ini",$horaini ? $horaini : $hora,$minini ? $minini : $min,$secini ? $secini : $sec);
+				$anoini = $ano;
+				$mesini = $mes;
+				$diaini = $dia;
+				echo "<input name='anoini' type='hidden' value=$anoini>";
+				echo "<input name='mesini' type='hidden' value=$mesini>";
+				echo "<input name='diaini' type='hidden' value=$diaini>";				
+			?>
+		</td></tr>
+		<tr><td>Fecha Fin : </td><td>
+			
+			<?php 
+			$curh = date("H");
+			$curm = date("i");
+			$curs = date("s");
+			horas("fin",$horafin ? $horafin : $curh,
+						$minfin ? $minfin : $curm,$secfin ? $secfin : $curs); 
+			$anofin = date("Y");
+			$mesfin = date("m");
+			$diafin = date("d");
+			echo "<input name='anofin' type='hidden' value=$anofin>";
+			echo "<input name='mesfin' type='hidden' value=$mesfin>";
+			echo "<input name='diafin' type='hidden' value=$diafin>";				
+			?>
+			
+		</td></tr>
 		<!--<tr><td>Fecha Inicio</td><td>
 			<?php 
 				$fecha_inicio=selectfield('inicio_actividad','fecha',$useridl);
@@ -172,5 +218,12 @@ echo '<form name="fcont" method="post"
 		<tr><td><input type="submit" value="Enviar"></td><td>Finalizar Tarea<input type="checkbox" name="ftarea"></td></tr>
 	</table>
 </form>
+<script type="text/javascript">
+	horas(<?php echo "\"ini\",".($horaini ? $horaini : $hora).",".($minini ? $minini : $min).",".($secini ? $secini : $sec)
+	.",$curh,$curm,$curs"; ?>);
+	horas(<?php echo "\"fin\",".($horafin ? $horafin : $curh).",".($minfin ? $minfin : $curm).",".($secfin ? $secfin : $curs)
+	.",$curh,$curm,$curs"; ?>);
+
+</script>
 
 
