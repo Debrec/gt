@@ -170,6 +170,7 @@ function mostrar($numpag,$regpp,$campos,$tabla,$where='') {
 function svariables($table,$i1,$i2) {
 	include('./conectar.php');
 	$query = "select * from $table";
+	$variable=[];
 	if ($result = $mysqli->query($query)) {
 		while(($row = $result->fetch_array())) {
 			$variable[$row[$i1]]=$row[$i2];

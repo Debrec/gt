@@ -1,7 +1,9 @@
 <html>
 <head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	<title>
 	<?php
+		$error = [];
 		function asignar($var,$index) {
 			if (isset($var[$index])) {
 				return $var[$index];
@@ -30,7 +32,7 @@
 <meta http-equiv="Content-Language" content="es">
 <meta content="gestor de tareas" name="description">
 <meta content="Spanish" name="language">
-<link type="text/css" rel="stylesheet" href="import.css">
+<link type="text/css" rel="stylesheet" href="./Presentacion_brown.css">
 <script src="js/lib.js" type="text/javascript">
 </script>
 </head>
@@ -62,14 +64,20 @@
 				$_SESSION['userid'] = $result->id;
 				header("location:index.php");
 			} else {
-				echo '<p class="failure">Su usuario es incorrecto, intente nuevamente.</p>';
+				//echo '<p class="failure">Su usuario es incorrecto, intente nuevamente.</p>';
+				$error['login']=1;
 			}
 		}
 ?>
 
-<form name="fcont" action="" method="post" class="login">
-    <div><label>Username</label><input name="user" type="text" ></div>
-    <div><label>Password</label><input name="password" type="password"></div>
+<form ng-app="" name="fcont" action="" method="post" class="login">
+    <div><label clas="login">E-mail</label><input class="login" size="30px" name="user" type="email" ng-model="text">
+	 <?php if (isset($error['login']) && $error['login']) { ?>
+	 	<span class="error">Error usuario o contraseña no registrado</span>
+	 <?php } ?>
+	 <span ng-show="fcont.user.$error.email">Dirección de e-mail invalida</span>
+	</div>
+    <div><label class="login">Password</label><input class="login" size="30px"name="password" type="password"></div>
     <div><input name="login" type="submit" value="login"></div>
 </form>
 <?php

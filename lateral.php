@@ -11,5 +11,5 @@
 	<li><a href="index.php?pag=tarea">Tarea</a></li>
 	<li><a href="logout.php">Logout</a></li>
 	<li><a href="index.php?pag=tarea&msg=reset">Reset Time</a></li>
-	<li><span>Fecha Inicio: <?php echo obtener_fecha($useridl); ?></span></li>
+	<li><span id="fi">Fecha Inicio: <?php echo obtener_fecha($useridl); ?></span></li>
 </ul>
