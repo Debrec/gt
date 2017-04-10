@@ -94,6 +94,7 @@ function agregar($campos,$tabla) {
 function mostrar($numpag,$regpp,$campos,$tabla,$where='') {
 	$offset = ($numpag-1) * $regpp;
 	include('./conectar.php');
+	include('./textos.php');
 	$i = 0;
 	$variables = '';
 	$valores = '';
@@ -128,7 +129,8 @@ function mostrar($numpag,$regpp,$campos,$tabla,$where='') {
 	  if ($result->num_rows > 0) {
 			echo "<tr>";
 			foreach ($campos as $clave => $valor) {
-				echo "<th>$clave</th>";
+				$var = obtenerTextos($tabla,$clave);
+				echo "<th>$var</th>";
 			}
 			if ($tabla == "actividad") {
 				echo "<th>Duración</th>";
@@ -139,7 +141,8 @@ function mostrar($numpag,$regpp,$campos,$tabla,$where='') {
 			echo "</tr>";
 			$i = 0;
 	    while(($row = $result->fetch_array())) {
-				echo "<tr bgcolor=" . (($i%2) ? "#552729" : "#774949") .">";
+				//echo "<tr bgcolor=" . (($i%2) ? "#552729" : "#774949") .">";
+				echo "<tr class=" . (($i%2) ? "uno" : "dos") .">";
 				for ($j=0;$j<count($campos);$j++) {
 					if($tabla == 'tarea' && $j == 1) {
 						echo "<td><a href='index.php?pag=actividad&tareaid=".$row[0]."'>".$row[$j]."</a></td>";

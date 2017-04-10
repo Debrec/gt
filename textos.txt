@@ -1,0 +1,15 @@
+tarea	nombre	Nombre
+tarea	descripcion	Descripci&oacute;n
+tarea	id	ID
+proyecto	fecha	Fecha
+proyecto	nombre	Nombre
+proyecto	comentario	Comentario
+usuarios	nombres	Nombres
+usuarios	apellido	Apellido
+usuarios	email	E-mail
+actividad	id	ID
+actividad	fecha_inicio	Fecha de Inicio
+actividad	fecha_fin	Fecha de Finalizaci&oacute;n
+actividad	titulo	T&iacute;tulo
+actividad	descripcion	Descripci&oacute;n
+actividad	duración	Duraci&oacute;n

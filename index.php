@@ -32,7 +32,7 @@
 <meta http-equiv="Content-Language" content="es">
 <meta content="gestor de tareas" name="description">
 <meta content="Spanish" name="language">
-<link type="text/css" rel="stylesheet" href="./Presentacion_brown.css">
+<link type="text/css" rel="stylesheet" href="./Presentacion_green.css">
 <script src="js/lib.js" type="text/javascript">
 </script>
 </head>

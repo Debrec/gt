@@ -35,7 +35,7 @@
 		}
 	}
 ?>
-<table>
+<table id="tar">
 	<tr><th>Usuario : </th><td><?php echo $usuario->email ?></td></tr>
 	<tr><th>Proyecto : </th><td><?php echo $proyecto->nombre ?></td></tr>
 	<tr><th>Tarea : </th><td><?php echo $tarea->nombre ?></td></tr>

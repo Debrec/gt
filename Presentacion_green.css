@@ -1,0 +1,242 @@
+html {
+	background-color:#337733;
+}
+
+body { width: 1000px; margin:auto; }
+
+form {
+    margin-left:20%; 
+    margin-right:20%; 
+    background-color:#808080; 
+}
+
+table {
+	background-color:#153315;
+	color:white;
+	border: thin none #003366;
+}
+
+h1 {
+        margin-right:0;	margin-left:0;margin-bottom:1;
+        font-style:normal;
+	    color:#0055FF;
+        text-align:center;
+        font-size:24pt;
+        font-weight:normal;
+}
+
+h2 {
+        margin-right:0;	margin-left:0;margin-bottom:1;
+		font-style:normal;
+		color:#3377FF;
+		text-align:center;
+		font-size:18pt;
+		font-weight:normal;
+}
+
+p  {
+    margin-right:15px;
+    margin-left:15px;
+    margin-top:3px;
+	margin-bottom:3px;
+    text-align:justify;	
+    color:#DDDDFF;
+    font-family:'Times New Roman','Arial',serif,sans-serif;
+    font-size:15pt;
+}
+
+span {font-size: 11pt; color:#AFAFAF; text-decoration:none}
+
+
+div.sub {
+    background-color:#153315; 
+    margin-top:20px; 
+    margin-bottom:20px; 
+    width:1000px; 
+    padding-top:20px; 
+    padding-bottom:20px;
+	opacity: 0.9;
+	filter: alpha(opacity=90);
+}
+
+div.sup {
+    background-color:#153315; 
+    padding-top:10px; padding-bottom:10px; 
+    padding-left:10px; 
+    margin-top:20px; 
+    margin-bottom:20px; 
+    width:990px;
+	opacity: 0.9;
+	filter: alpha(opacity=90);
+}
+
+div.body { 
+    width:1000px;
+}
+
+
+div.blanco div.center p {
+	text-align: center;
+}
+
+#status {
+	width="100%";
+}
+
+#tar tr th {text-align:right; width: 100px;}
+
+
+
+h1.subt {margin-right:0;	margin-left:15px;margin-bottom:0px;
+	  font-style:normal;
+		color:#0055FF;
+    /*color:#5015CC;*/
+    text-align:left;
+    font-size:22pt;
+    font-weight:normal;}
+
+
+
+p.succes {
+		text-align: left;
+		font-family: serif,sans-serif;
+		font-size: 15pt;
+		color:white;
+}
+
+p.failure {
+		text-align: left;
+		font-family: serif,sans-serif;
+		font-size: 15pt;
+		color:red;
+}
+
+
+ul li {margin-right:15px;margin-left:15px;margin-top:3px;
+       margin-bottom:3px;
+       color:#DDDDFF;
+    	font-family:'Times New Roman','Arial',serif,sans-serif;
+    	font-size:15pt;
+		}
+
+p.fecha {color:#FF0000;}
+
+span.p {
+    margin-right:0px;
+    margin-left:15px;
+    text-align:justify;	
+    color:#DDDDFF;
+    font-family:'Times New Roman','Arial',serif,sans-serif;
+    font-size:12pt;
+}
+
+.centrado {text-align:center;}
+
+a{font-size:15pt;}
+
+span.texto {font-size:15pt;}
+span.new  {font-size:15pt; color:#FF0000;}
+span.res  {font-size:15pt; color:#FFFFAA;}
+span.resnew  {font-size:15pt; color:#FFAAAA;}
+a:link    {color:#A0A0A0; text-decoration:none}
+a:visited {color:#C0C0C0; text-decoration:underline;}
+a:hover   {color:#808080; text-decoration:underline;} /* en realidad no es CSS1 */
+a:active  {color:#FFFFFF; text-decoration:underline;}
+h1 a.simb {font-size:32px;color:#FF0000;}
+
+span#fi {color:#0055FF}
+#statusf {margin-left:5%; margin-right:0%; background-color:#808080}
+
+form.login {
+    background: none repeat scroll 0 0 #F1F1F1;
+    border: 1px solid #DDDDDD;
+	position: absolute;
+	top:50%;
+	left:50%;
+	width:250px;
+	margin-left:-125px;
+	height:150px;
+	margin-top:-85px;
+	padding:5px;
+}
+
+form.login label {
+	margin-right: 5px;
+}
+
+form.login div {
+	margin-top:10px;
+}
+/* Matemática */
+
+div.lateral {
+	font-family:'Times New Roman','Arial',serif,sans-serif;
+	background-color:#153315;
+	float: left;
+	width:180px;
+	margin-right: 20px;
+	opacity: 0.9;
+	filter: alpha(opacity=90);
+}
+
+div.lateral a {font-size: 11pt;}
+
+div.blanco span.error {size:12; color:red;}
+
+div.blanco {
+	font-family:'Times New Roman','Arial',serif,sans-serif;
+	background-color:#153315;
+	padding-top:20px; padding-bottom:20px;
+	padding-left:20px; padding-right:20px;
+	float: left;
+	width:760px;
+	opacity: 0.9;
+	filter: alpha(opacity=90);
+}
+
+div.blanco h1 {
+	font-size:30pt;
+    text-align:center; 
+    color: gray;
+    font-weight:normal; 
+    text-decoration:underline;  
+    font-family:'Times New Roman';
+}
+
+div.blanco h2 {
+    font-size:20pt;
+    text-align:left; 
+    color:#0000FF; 
+    font-weight:normal; 
+    text-decoration:underline;
+    text-indent: 5pt;
+}
+
+div.blanco p {
+    text-indent: 20pt; 
+    font-size:16pt; 
+    color: white;
+    text-align:justify;
+}
+
+div.blanco p a.simb {font-family:'Symbol'; color:white;}
+a.rojo {color:#FF0000;}
+
+div.blanco p.centrado {text-align:center;}
+div.blanco img.centrado {text-align:center;}
+
+span.error {
+	font-size:10pt;
+	color:red;
+}
+
+label.login {
+	text-align:right;
+}
+
+input.login {
+	
+}
+
+tr.uno {background-color: blue;}
+tr.dos {background-color: #003366;}
