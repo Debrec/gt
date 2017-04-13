@@ -104,6 +104,9 @@
 		$userid = asignar($_POST,'userid');
 		$proyectid = asignar($_POST,'proyectid');
 		$status = asignar($_POST,'status');
+		if (!isset($status)) {
+			$status = 1;
+		}
 		$ftarea = asignar($_POST,'ftarea');
 		$reabrir = asignar($_POST,'reabrir');
 		if (!isset($pag)) {

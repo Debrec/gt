@@ -35,7 +35,7 @@
 		}
 	}
 ?>
-<table id="tar">
+<table class="tar">
 	<tr><th>Usuario : </th><td><?php echo $usuario->email ?></td></tr>
 	<tr><th>Proyecto : </th><td><?php echo $proyecto->nombre ?></td></tr>
 	<tr><th>Tarea : </th><td><?php echo $tarea->nombre ?></td></tr>
@@ -137,9 +137,9 @@ echo '<form name="fcont" method="post"
  action="./index.php?pag=actividad&msg=add&tareaid='.$tareaid.'">';
 ?>
 	<table width="100%">
-		<tr><td>Nombre</td><td><input name="nombre" id="nombre" type="text" size="50" maxlength="100" value="<?php echo $nombre ?>"><?php errorform($error,'nombre'); ?></td></tr>
-		<tr><td>Descripcion</td><td><textarea name="descripcion" title="descripcion" maxlength="1000" cols="50" rows="10" label="Descripcion"><?php echo $texto ?></textarea><?php errorform($error,'descripcion'); ?></td></tr>
-		<tr><td>Hora Inicio : </td><td>
+		<tr><td>Nombre:</td><td><input name="nombre" id="nombre" type="text" size="48" maxlength="100" value="<?php echo $nombre ?>"><?php errorform($error,'nombre'); ?></td></tr>
+		<tr><td>Descripcion: </td><td><textarea name="descripcion" title="descripcion" maxlength="1000" cols="50" rows="10" label="Descripcion"><?php echo $texto ?></textarea><?php errorform($error,'descripcion'); ?></td></tr>
+		<tr><td>Hora Inicio: </td><td>
 			<?php
 				$fecha_inicio=selectfield('inicio_actividad','fecha',$useridl);
 				if (isset($fecha_inicio)) {
@@ -166,7 +166,7 @@ echo '<form name="fcont" method="post"
 				echo "<input name='diaini' type='hidden' value=$diaini>";				
 			?>
 		</td></tr>
-		<tr><td>Fecha Fin : </td><td>
+		<tr><td>Hora Fin: </td><td>
 			
 			<?php 
 			$curh = date("H");

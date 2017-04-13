@@ -42,7 +42,7 @@ function mostrartarea($numpag,$regpp,$status) {
 	$campos['nombre'] = 0;
 	$campos['descripcion'] = 0;
 	$tabla = 'tarea';
-	if (isset($status) && $status != 4) {
+	if (isset($status) && $status != 3) {
 		$where = " status = $status ";
 	}
 
@@ -106,11 +106,10 @@ include('./scripts.php');
 			<select name="status" onchange="this.form.submit()">
 				<?php
 				$vars = array();
-				$vars[0] = "Tarea Sin Comenzar";
-				$vars[1] = "Tarea Comenzada";
-				$vars[2] = "Tarea Finalizada";
-				$vars[3] = "Pedido de definiciones";
-				$vars[4] = "Todas las tareas";
+				$vars[0] = "Tareas Sin Comenzar";
+				$vars[1] = "Tareas Comenzada";
+				$vars[2] = "Tareas Finalizada";
+				$vars[3] = "Todas las tareas";
 				if (!isset($status)) {
 					$status = 4;
 				}
@@ -145,13 +144,13 @@ include('./scripts.php');
 
 <form name="fcont" method="post" action="./index.php?pag=tarea<?php echo $msgf  ?>"	>
 	<table width="100%">
-		<tr><td>Nombre</td><td><input name="nombre" id="nombre" type="text" size="50" maxlength="100" value="<?php echo $nombre ?>">
+		<tr><td>Nombre:</td><td><input name="nombre" id="nombre" type="text" size="50" maxlength="100" value="<?php echo $nombre ?>">
 			<?php errorform($error,'nombre'); ?>
 		</td></tr>
-		<tr><td>Descripcion</td><td><textarea name="descripcion" title="descripcion" maxlength="1000" cols="50" rows="10" label="Descripcion"><?php echo $texto ?></textarea>
+		<tr><td>Descripcion:</td><td><textarea name="descripcion" title="descripcion" maxlength="1000" cols="50" rows="10" label="Descripcion"><?php echo $texto ?></textarea>
 			<?php errorform($error,'descripcion'); ?>
 		</td></tr>
-		<tr><td>Usuarios</td>
+		<tr><td>Usuarios:</td>
 			<td>
 				<select name="userid">
 					<?php
@@ -163,7 +162,7 @@ include('./scripts.php');
 					?>
 			</select>
 		</td></tr>
-		<tr><td>Proyecto</td>
+		<tr><td>Proyecto:</td>
 			<td>
 				<select name="proyectid">
 					<?php
