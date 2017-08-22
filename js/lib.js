@@ -19,13 +19,13 @@ function selectopt(field,cod) {
 	}
 }
 
-function updatehoras(cod,curh,curm,curs) {
+/*function updatehoras(cod,curh,curm,curs) {
 	var hora, minu, sec;
 	hora = selectopt('hora',cod);
 	minu = selectopt('min',cod);
 	sec = selectopt('sec',cod);
 	horas(cod,hora,minu,sec,curh,curm,curs);	
-}
+}*/
 
 function updatefechahora(cod,fechaArray,curf,curh,curm,curs) {
 	var fecha,hora,minu,sec;
@@ -36,7 +36,7 @@ function updatefechahora(cod,fechaArray,curf,curh,curm,curs) {
 	fechahora(cod,fechaArray,fecha,hora,minu,sec,curf,curh,curm,curs);	
 }
 
-function horas(cod,hora,minu,sec,curh,curm,curs) {
+/*function horas(cod,hora,minu,sec,curh,curm,curs) {
 	var opth,selecthour,selectmin,selectsec,i,hora,minu,sec,cod,curh,curm,curs,fin;
 	selecthour = document.getElementById("hora"+cod);
 	if (hora < curh) {			
@@ -116,7 +116,7 @@ function horas(cod,hora,minu,sec,curh,curm,curs) {
     	}
     	selectsec.appendChild(opth);
 	}
-}
+}*/
 
 function fechahora(cod,fechaArr,fecha,hora,minu,sec,curf,curh,curm,curs) {
 	var opth,selectfecha,selecthour,selectmin,selectsec,i,fecha,hora,minu,sec,cod,curh,curm,curs,fin;
@@ -226,4 +226,3 @@ function fechahora(cod,fechaArr,fecha,hora,minu,sec,curf,curh,curm,curs) {
     	selectsec.appendChild(opth);
 	}
 }
-

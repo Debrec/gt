@@ -44,7 +44,7 @@ function paginas($numpag,$regpp,$pag,$tabla,$tareaid=0,$status=4) {
 	echo '</p></div>';
 }
 
-function leap($year)
+/*function leap($year)
 {
 	$lpy=0;
 	if($year%1000== 0){
@@ -62,7 +62,7 @@ function leap($year)
 function diadelmes($ano,$mes) {
 	$dias = array(31,28+leap($ano),31,30,31,30,31,31,30,31,30,31);
 	return $dias[$mes];
-}
+}*/
 
 /*function fecha($cod,$ano, $mes,$dia,$hora,$min,$sec) {
 			$anoa = date("Y");
@@ -210,120 +210,25 @@ function fechahora($cod,$fechaArrStr,$curf,$hora,$min,$sec) {
 			
 			echo "<span> Fecha : ";
 			echo "<select id=\"fecha$cod\" name=\"fecha$cod\" onchange=\"updatefechahora('$cod',$fechaArrStr,$curf,$curh,$curm,$curs);\">\n";
-				/*if ($hora < $horaa) {			
-					$sel = $hora;
-					$svh = 1;
-				} else {
-					$sel = $horaa;
-					$svh=0;
-				}
-				$fin = $horaa;		
-				for ($i=0;$i<=$fin;$i++) {
-					if ($i<10) {
-						$val=sprintf("0%s",$i);
-					} else {
-						$val=$i;
-					}
-					echo "<option ".($i==$sel ? "selected" : "" )." value=$val>$val</option>";
-				}*/
+				
 			echo "</select>\n";
 			echo "</span>\n";
 
 			echo "<span> H : ";
 			echo "<select id=\"hora$cod\" name=\"hora$cod\" onchange=\"updatefechahora('$cod',$fechaArrStr,$curh,$curm,$curs);\">\n";
-				/*if ($hora < $horaa) {			
-					$sel = $hora;
-					$svh = 1;
-				} else {
-					$sel = $horaa;
-					$svh=0;
-				}
-				$fin = $horaa;		
-				for ($i=0;$i<=$fin;$i++) {
-					if ($i<10) {
-						$val=sprintf("0%s",$i);
-					} else {
-						$val=$i;
-					}
-					echo "<option ".($i==$sel ? "selected" : "" )." value=$val>$val</option>";
-				}*/
+				
 			echo "</select>\n";
 			echo "</span>\n";
 			
 			echo "<span> M : ";
 			echo "<select id=\"min$cod\" name=\"min$cod\" onchange=\"updatefechahora('$cod',$fechaArrStr,$curh,$curm,$curs);\">\n";
-				/*if ($svh) {
-					$fin = 59;
-					$sel = $min;
-					$svm=1;
-				} else {
-					$fin = $mina;
-					if ($min <$fin) {
-						$svm=1;
-						$sel = $min;
-					} else {
-						$svm=0;
-						$sel=$mina;
-					}
-				}
 				
-				/*if ($svh && ($min <= $fin)) {
-					$sel = $min;
-				} else if ($svh && ) {
-					if ($min <= $fin) {
-					$sel = $min;
-					$svm=0;
-				}*//*
-				for ($i=0;$i<=$fin;$i++) {
-					if ($i<10) {
-						$val=sprintf("0%s",$i);
-					} else {
-						$val=$i;
-					}
-					echo "<option ".($i==$sel ? "selected" : "" )." value=$val>$val</option>";
-				}*/
 			echo "</select>\n";
 			echo "</span>\n";
 			
 			echo "<span> S : ";
 			echo "<select id=\"sec$cod\" name=\"sec$cod\">\n";
-				/*if ($svm) {
-					$fin = 59;
-					$sel = $sec;
-				} else {
-					$fin = $seca;
-					if ($sec <$fin) {
-						$sel = $sec;
-					} else {
-						$sel=$seca;
-					}
-				}
-				/*if ($svh || $svm) {
-					$fin = 59;
-				} else {
-					$fin = $seca;
-				}
 				
-				if ($sec <= $fin) {
-					$sel = $sec;
-				} else {
-					$sel = $seca;
-				}
-
-/*				if ($sec < $seca) {			
-					$sel = $sec;
-				} else {
-					$sel = $seca;
-				}
-				$fin = $seca;*/		/*
-				for ($i=0;$i<=$fin;$i++) {
-					if ($i<10) {
-						$val=sprintf("0%s",$i);
-					} else {
-						$val=$i;
-					}
-					echo "<option ".($i==$sel ? "selected" : "" )." value=$val>$val</option>";
-				}*/
 			echo "</select>\n";
 			echo "</span>\n";
 }
