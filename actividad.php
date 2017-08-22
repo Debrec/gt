@@ -65,10 +65,10 @@
 <?php } ?>
 <?php
 
-function agregaractividad($nombre,$texto,$userid,$tareaid,$status,$fecha_inicio,$fecha_fin) {
+function agregaractividad($texto,$userid,$tareaid,$status,$fecha_inicio,$fecha_fin) {
 	$campos['fecha_inicio']=$fecha_inicio;
 	$campos['fecha_fin']=$fecha_fin;
-	$campos['titulo'] = $nombre;
+	//$campos['titulo'] = "";
 	$texto = trim($texto);
 	$texto = nl2br($texto);
 	$campos['descripcion'] = $texto;
@@ -88,7 +88,7 @@ function mostraractividad($numpag,$regpp,$tareaid) {
 	$campos['id'] = 0;
 	$campos['fecha_inicio'] = 0;
 	$campos['fecha_fin']=0;
-	$campos['titulo'] = 0;
+	//$campos['titulo'] = 0;
 	$campos['descripcion'] = 0;
 	$tabla = 'actividad';
 	mostrar($numpag,$regpp,$campos,$tabla," tareaid = $tareaid ");
@@ -106,16 +106,15 @@ function checkst($status,$error) {
 if ($msg == 'add') {
 	$fecha_inicio = sprintf("%s %s:%s:%s",$fechaArr[$fechaini],$horaini,$minini,$secini);
 	$fecha_fin = sprintf("%s %s:%s:%s",$fechaArr[$fechafin],$horafin,$minfin,$secfin);
-	echo $fecha_inicio." ".$fecha_fin;
-	if ($nombre && $texto && $useridl && $tareaid && checkst($status,$error)) {
-		if(agregaractividad($nombre,$texto,$useridl,$tareaid,$status,$fecha_inicio,$fecha_fin) == -1) {
+	if ($texto && $useridl && $tareaid && checkst($status,$error)) {
+		if(agregaractividad($texto,$useridl,$tareaid,$status,$fecha_inicio,$fecha_fin) == -1) {
 			$error['fecha_inicio']=1;
 			echo "<p class=failure>Error al agregar actividad campos incorrectos</p>";
 		} 	
 	} else {
-		if (!$nombre) {
+		/*if (!$nombre) {
 			$error['nombre'] = 1;
-		}
+		}*/
 		if (!$texto) {
 			$error['descripcion'] = 1;
 		}
@@ -142,7 +141,7 @@ echo '<form name="fcont" method="post"
  action="./index.php?pag=actividad&msg=add&tareaid='.$tareaid.'">';
 ?>
 	<table width="100%">
-		<tr><td>Nombre</td><td><input name="nombre" id="nombre" type="text" size="50" maxlength="100" value="<?php echo $nombre ?>"><?php errorform($error,'nombre'); ?></td></tr>
+		<!--<tr><td>Nombre</td><td><input name="nombre" id="nombre" type="text" size="50" maxlength="100" value="<?php echo $nombre ?>"><?php errorform($error,'nombre'); ?></td></tr>-->
 		<tr><td>Descripcion</td><td><textarea name="descripcion" title="descripcion" maxlength="1000" cols="50" rows="10" label="Descripcion"><?php echo $texto ?></textarea><?php errorform($error,'descripcion'); ?></td></tr>
 		<tr><td>Inicio : </td><td>
 			<?php
