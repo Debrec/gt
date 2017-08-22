@@ -34,8 +34,18 @@
 				break;
 		}
 	}
+	$fechaArr = array();
+	$fechaArrStr = "[";
+	for ($i=0;$i<7;$i++) {
+		$fechaArr[$i] = date("Y-m-d",time()-24*3600*$i);
+		if ($i<6) {
+			$fechaArrStr = $fechaArrStr."'".$fechaArr[$i]."'".","; 	
+		} else {
+			$fechaArrStr = $fechaArrStr."'".$fechaArr[$i]."'"."]"; 					
+		}	
+	}
 ?>
-<table>
+<table id="cabecera_actividad">
 	<tr><th>Usuario : </th><td><?php echo $usuario->email ?></td></tr>
 	<tr><th>Proyecto : </th><td><?php echo $proyecto->nombre ?></td></tr>
 	<tr><th>Tarea : </th><td><?php echo $tarea->nombre ?></td></tr>
@@ -100,8 +110,9 @@ function checkst($status,$error) {
 }
 
 if ($msg == 'add') {
-	$fecha_inicio = sprintf("%s-%s-%s %s:%s:%s",$anoini,$mesini,$diaini,$horaini,$minini,$secini);
-	$fecha_fin = sprintf("%s-%s-%s %s:%s:%s",$anofin,$mesfin,$diafin,$horafin,$minfin,$secfin);
+	$fecha_inicio = sprintf("%s %s:%s:%s",$fechaArr[$fechaini],$horaini,$minini,$secini);
+	$fecha_fin = sprintf("%s %s:%s:%s",$fechaArr[$fechafin],$horafin,$minfin,$secfin);
+	echo $fecha_inicio." ".$fecha_fin;
 	if ($nombre && $texto && $useridl && $tareaid && checkst($status,$error)) {
 		if(agregaractividad($nombre,$texto,$useridl,$tareaid,$status,$fecha_inicio,$fecha_fin) == -1) {
 			$error['fecha_inicio']=1;
@@ -139,52 +150,59 @@ echo '<form name="fcont" method="post"
 	<table width="100%">
 		<tr><td>Nombre</td><td><input name="nombre" id="nombre" type="text" size="50" maxlength="100" value="<?php echo $nombre ?>"><?php errorform($error,'nombre'); ?></td></tr>
 		<tr><td>Descripcion</td><td><textarea name="descripcion" title="descripcion" maxlength="1000" cols="50" rows="10" label="Descripcion"><?php echo $texto ?></textarea><?php errorform($error,'descripcion'); ?></td></tr>
-		<tr><td>Hora Inicio : </td><td>
+		<tr><td>Inicio : </td><td>
 			<?php
 				$fecha_inicio=selectfield('inicio_actividad','fecha',$useridl);
 				if (isset($fecha_inicio)) {
-					$ano = substr($fecha_inicio,0,4);
+					/*$ano = substr($fecha_inicio,0,4);
 					$mes = substr($fecha_inicio,5,2);
-					$dia = substr($fecha_inicio,8,2);
+					$dia = substr($fecha_inicio,8,2);*/
+					$fecha = substr($fecha_inicio,0,10);
 					$hora = substr($fecha_inicio,11,2);
 					$min = substr($fecha_inicio,14,2);
 					$sec = substr($fecha_inicio,17,2);
 				} else {
-					$ano = date("Y");
+					
+					/*$ano = date("Y");
 					$mes = date("m");
-					$dia = date("d");
+					$dia = date("d");*/
+					$fecha = date("Y-m-d");
 					$hora = date("H");
 					$min = date("i");
 					$sec = date("s");
 				}
-				horas("ini",$horaini ? $horaini : $hora,$minini ? $minini : $min,$secini ? $secini : $sec);
+				fechahora("ini",$fechaArrStr,$fechaini ? $fechaini : $fecha,$horaini ? $horaini : $hora,$minini ? $minini : $min,$secini ? $secini : $sec);
+				//horas("ini",$horaini ? $horaini : $hora,$minini ? $minini : $min,$secini ? $secini : $sec);
+				/*
 				$anoini = $ano;
 				$mesini = $mes;
-				$diaini = $dia;
-				echo "<input name='anoini' type='hidden' value=$anoini>";
-				echo "<input name='mesini' type='hidden' value=$mesini>";
-				echo "<input name='diaini' type='hidden' value=$diaini>";				
+				$diaini = $dia;*/
+				//echo "<input name='anoini' type='hidden' value=$anoini>";
+				//echo "<input name='mesini' type='hidden' value=$mesini>";
+				//echo "<input name='diaini' type='hidden' value=$diaini>";				
 			?>
 		</td></tr>
-		<tr><td>Fecha Fin : </td><td>
+		<tr><td>Fin : </td><td>
 			
 			<?php 
 			$curh = date("H");
 			$curm = date("i");
 			$curs = date("s");
-			horas("fin",$horafin ? $horafin : $curh,
+			$curf = date("Y-m-d");
+			fechahora("fin",$fechaArrStr,$fechafin ? $fechafin : $fecha,$horafin ? $horafin : $hora,$minfin ? $minfin : $min,$secfin ? $secfin : $sec)
+			/*horas("fin",$horafin ? $horafin : $curh,
 						$minfin ? $minfin : $curm,$secfin ? $secfin : $curs); 
 			$anofin = date("Y");
 			$mesfin = date("m");
 			$diafin = date("d");
 			echo "<input name='anofin' type='hidden' value=$anofin>";
 			echo "<input name='mesfin' type='hidden' value=$mesfin>";
-			echo "<input name='diafin' type='hidden' value=$diafin>";				
+			echo "<input name='diafin' type='hidden' value=$diafin>";*/				
 			?>
 			
 		</td></tr>
 		<!--<tr><td>Fecha Inicio</td><td>
-			<?php 
+			<?php /*
 				$fecha_inicio=selectfield('inicio_actividad','fecha',$useridl);
 				if (isset($fecha_inicio)) {
 					$ano = substr($fecha_inicio,0,4);
@@ -205,24 +223,30 @@ echo '<form name="fcont" method="post"
 			fecha("ini",$anoini ? $anoini : $ano,$mesini ? $mesini : $mes,
 						$diaini ? $diaini : $dia,$horaini ? $horaini : $hora,
 						$minini ? $minini : $min,$secini ? $secini : $sec); 
-			errorform($error,'fecha_inicio');
+			errorform($error,'fecha_inicio');*/
 			?>
 			</td>
 		</tr>
 		<tr><td>Fecha Fin:</td><td>
-			<?php fecha("fin",$anofin ? $anofin : date("Y"),$mesfin ? $mesfin : date("m"),
+			<?php /*fecha("fin",$anofin ? $anofin : date("Y"),$mesfin ? $mesfin : date("m"),
 						$diafin ? $diafin : date("d"),$horafin ? $horafin : date("H"),
 						$minfin ? $minfin : date("i"),$secfin ? $secfin : date("s")); 
-			?>
+			*/?>
 		</td></tr>-->
 		<tr><td><input type="submit" value="Enviar"></td><td>Finalizar Tarea<input type="checkbox" name="ftarea"></td></tr>
 	</table>
 </form>
-<script type="text/javascript">
-	horas(<?php echo "\"ini\",".($horaini ? $horaini : $hora).",".($minini ? $minini : $min).",".($secini ? $secini : $sec)
+<script type="text/javascript">	
+	fechahora(<?php echo "\"ini\",".$fechaArrStr.",".($fechaini ? "\"".$fechaini."\"" : "\"".$fecha."\"").",".($horaini ? $horaini : $hora).",".($minini ? $minini : $min).",".($secini ? $secini : $sec)
+	.",\"".$curf."\"".",".$curh.",".$curm.",".$curs; ?>);
+	fechahora(<?php echo "\"fin\",".$fechaArrStr.",".($fechafin ? "\"".$fechafin."\"" : "\"".$fecha."\"").",".($horafin ? $horafin : $hora).",".($minfin ? $minfin : $min).",".($secfin ? $secfin : $sec)
+	.",\"".$curf."\"".",".$curh.",".$curm.",".$curs; ?>);
+	
+
+/*	horas(<?php echo "\"ini\",".($horaini ? $horaini : $hora).",".($minini ? $minini : $min).",".($secini ? $secini : $sec)
 	.",$curh,$curm,$curs"; ?>);
 	horas(<?php echo "\"fin\",".($horafin ? $horafin : $curh).",".($minfin ? $minfin : $curm).",".($secfin ? $secfin : $curs)
-	.",$curh,$curm,$curs"; ?>);
+	.",$curh,$curm,$curs"; ?>);*/
 
 </script>
 

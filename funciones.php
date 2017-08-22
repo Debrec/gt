@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set ( "America/Argentina/Buenos_Aires" );
 function contarceldas($tabla,$tareaid=0,$status=4) {
 	include('./conectar.php');
 	$querymax = "SELECT COUNT(*) FROM $tabla";
@@ -63,7 +64,7 @@ function diadelmes($ano,$mes) {
 	return $dias[$mes];
 }
 
-function fecha($cod,$ano, $mes,$dia,$hora,$min,$sec) {
+/*function fecha($cod,$ano, $mes,$dia,$hora,$min,$sec) {
 			$anoa = date("Y");
 			$mesa = date("m");
 			$diaa = date("d");
@@ -198,16 +199,38 @@ function fecha($cod,$ano, $mes,$dia,$hora,$min,$sec) {
 				}
 			echo "</select>\n";
 			echo "</span>\n";
-}
+}*/
 
 
-function horas($cod,$hora,$min,$sec) {
+function fechahora($cod,$fechaArrStr,$curf,$hora,$min,$sec) {
 			$curh = date("H");			
 			$curm = date("i");
 			$curs = date("s");
+			$curf = "'".date("Y-m-d")."'";
 			
-			echo "<span> Hora : ";
-			echo "<select id=\"hora$cod\" name=\"hora$cod\" onchange=\"updatehoras('$cod',$curh,$curm,$curs);\">\n";
+			echo "<span> Fecha : ";
+			echo "<select id=\"fecha$cod\" name=\"fecha$cod\" onchange=\"updatefechahora('$cod',$fechaArrStr,$curf,$curh,$curm,$curs);\">\n";
+				/*if ($hora < $horaa) {			
+					$sel = $hora;
+					$svh = 1;
+				} else {
+					$sel = $horaa;
+					$svh=0;
+				}
+				$fin = $horaa;		
+				for ($i=0;$i<=$fin;$i++) {
+					if ($i<10) {
+						$val=sprintf("0%s",$i);
+					} else {
+						$val=$i;
+					}
+					echo "<option ".($i==$sel ? "selected" : "" )." value=$val>$val</option>";
+				}*/
+			echo "</select>\n";
+			echo "</span>\n";
+
+			echo "<span> H : ";
+			echo "<select id=\"hora$cod\" name=\"hora$cod\" onchange=\"updatefechahora('$cod',$fechaArrStr,$curh,$curm,$curs);\">\n";
 				/*if ($hora < $horaa) {			
 					$sel = $hora;
 					$svh = 1;
@@ -227,8 +250,8 @@ function horas($cod,$hora,$min,$sec) {
 			echo "</select>\n";
 			echo "</span>\n";
 			
-			echo "<span> Minutos : ";
-			echo "<select id=\"min$cod\" name=\"min$cod\" onchange=\"updatehoras('$cod',$curh,$curm,$curs);\">\n";
+			echo "<span> M : ";
+			echo "<select id=\"min$cod\" name=\"min$cod\" onchange=\"updatefechahora('$cod',$fechaArrStr,$curh,$curm,$curs);\">\n";
 				/*if ($svh) {
 					$fin = 59;
 					$sel = $min;
@@ -262,7 +285,7 @@ function horas($cod,$hora,$min,$sec) {
 			echo "</select>\n";
 			echo "</span>\n";
 			
-			echo "<span> Segundos : ";
+			echo "<span> S : ";
 			echo "<select id=\"sec$cod\" name=\"sec$cod\">\n";
 				/*if ($svm) {
 					$fin = 59;

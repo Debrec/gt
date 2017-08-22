@@ -1,4 +1,5 @@
 <?php
+	date_default_timezone_set ( "America/Argentina/Buenos_Aires" );
 	function inicio_actividad($userid) {
 		if (isset($userid)) {
 			include('conectar.php');

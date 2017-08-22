@@ -36,6 +36,8 @@ table {
 tr.blue {color: blue;}
 tr.green {color: green;}
 
+#cabecera_actividad th {width: 100px; text-align:right;}
+
 h1 {margin-right:0;	margin-left:0;margin-bottom:1;
     font-style:normal;
 	color:#0055FF;

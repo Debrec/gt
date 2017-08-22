@@ -1,8 +1,10 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	<title>
 	<?php
+		date_default_timezone_set ( "America/Argentina/Buenos_Aires" );
 		$error = [];
 		function asignar($var,$index) {
 			if (isset($var[$index])) {
@@ -115,17 +117,19 @@
 		} else if ($pag == 'tarea') {
 			include('./tareas.php');
 		} else if ($pag=='actividad') {
-			$anofin = asignar($_POST,'anofin');
+			/*$anofin = asignar($_POST,'anofin');
 			$mesfin = asignar($_POST,'mesfin');
-			$diafin = asignar($_POST,'diafin');
+			$diafin = asignar($_POST,'diafin');*/
+			$fechafin = asignar($_POST,'fechafin');
 			$horafin = asignar($_POST,'horafin');
 			$minfin = asignar($_POST,'minfin');
 			$secfin = asignar($_POST,'secfin');
 			
 			
-			$anoini = asignar($_POST,'anoini');
+			/*$anoini = asignar($_POST,'anoini');
 			$mesini = asignar($_POST,'mesini');
-			$diaini = asignar($_POST,'diaini');
+			$diaini = asignar($_POST,'diaini');*/
+			$fechaini = asignar($_POST,'fechaini');
 			$horaini = asignar($_POST,'horaini');
 			$minini = asignar($_POST,'minini');
 			$secini = asignar($_POST,'secini');
