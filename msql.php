@@ -15,7 +15,7 @@ function modificarstatus($tareaid,$status) {
 		$mysqli->close();
 }
 
-function borrar($tabla,$id) {
+/*function borrar($tabla,$id) {
 	include('./conectar.php');
 	if (isset($id)) {
 		$query = "delete from $tabla where id=$id";
@@ -29,7 +29,7 @@ function borrar($tabla,$id) {
 	} else {
 		echo "<p class=failure>Error falta id al borrar</p>";
 	}
-}
+}*/
 
 function editar($id,$campos,$tabla) {
 	include('./conectar.php');

@@ -2,7 +2,8 @@
 $error = array();
 
 function borrartarea($tareaid) {
-	borrar('tarea',$tareaid);
+	modificarstatus($tareaid,5);
+	//borrar('tarea',$tareaid);
 }
 
 function editartarea($tareaid,$nombre,$texto,$userid,$proyectid) {
@@ -44,6 +45,8 @@ function mostrartarea($numpag,$regpp,$status) {
 	$tabla = 'tarea';
 	if (isset($status) && $status != 4) {
 		$where = " status = $status ";
+	} else {
+		$where = " status != 5 ";
 	}
 
 	mostrar($numpag,$regpp,$campos,$tabla,isset($where) ? $where : null);

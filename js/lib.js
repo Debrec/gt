@@ -123,7 +123,6 @@ function fechahora(cod,fechaArr,fecha,hora,minu,sec,curf,curh,curm,curs) {
 	selectfecha = document.getElementById("fecha"+cod);
 	var f = new Date();
 	curf = f.getFullYear()+"-"+pad(f.getMonth()+1,2)+"-"+pad(f.getDate());
-	alert(curf);
 	curh = f.getHours();
 	curm = f.getMinutes();
 	curs = f.getSeconds();
