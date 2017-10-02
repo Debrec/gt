@@ -96,13 +96,13 @@ class Actividad extends Objeto{
 		$campos['fecha_fin']=0;
 		$campos['descripcion'] = 0;
 
-		$textos['id'] = 'ID';
+	/*	$textos['id'] = 'ID';
 		$textos['fecha_inicio'] = 'Fecha Inicio';
 		$textos['fecha_fin']= 'Fecha Fín';
 		$textos['descripcion'] = 'Descripción';
-		$textos['difdate'] = 'Duración';
+		$textos['difdate'] = 'Duración';*/
 
-		parent::mostrar($numpag,$campos," tareaid = $tareaid ",$textos);
+		parent::mostrar($numpag,$campos," tareaid = $tareaid ");//,$textos);
 	}
 }
 

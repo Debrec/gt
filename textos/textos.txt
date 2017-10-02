@@ -1,0 +1,14 @@
+actividad::id::ID
+actividad::fecha_inicio::Fecha de Inicio
+actividad::fecha_fin::Fecha de Finalización
+actividad::descripcion::Descripción
+actividad::difdate::Duración
+proyecto::fecha::Fecha
+proyecto::nombre::Nombre
+proyecto::comentario::Descripción
+usuarios::nombres::Nombre
+usuarios::apellido::Apellido
+usuarios::email::E-mail
+tarea::id::ID
+tarea::nombre::Nombre
+tarea::descripcion::Descripción

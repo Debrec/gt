@@ -142,9 +142,7 @@ class Objeto {
 				}
 				$result->close();
 				return $objetos;				
-			} else {
-	    		echo "<p class=failure>Error no se encontraron registros</p>";
-	  		}
+			} 
 		} else {
 			echo "<p class=failure>Error al ejecutar query : $query</p>";
 	  		error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
@@ -152,9 +150,12 @@ class Objeto {
 	}
 
 	public function mostrar($numpag,$campos,$where='',$textos=null) {
-		$objetos = $this->get($numpag,$campos);
+		$objetos = $this->get($numpag,$campos,$where);
 		if (count($objetos) > 0) {
 			echo "<tr>";
+			if (!isset($textos)) {
+				$textos = $this->getTexts();
+			}
 			foreach ($objetos[0] as $clave => $valor) {
 				if (isset($textos[$clave])) {
 					echo "<th>".$textos[$clave]."</th>";
@@ -188,6 +189,23 @@ class Objeto {
 			}
 		} else {
 			echo "<p class=failure>Error no se encontraron registros</p>";
+		}
+	}
+
+	public function getTexts() {
+		$fh = fopen('./textos/textos.txt','r');
+		$textos = array();
+		while ($linea = fgets($fh)) {
+		  $array=explode("::",$linea);
+		  if ($array[0] == $this->tabla) {
+			$textos[$array[1]] = $array[2];
+		  }
+		}
+		fclose($fh);
+		if (count($textos) > 0) {
+			return $textos;
+		} else {
+			return null;
 		}
 	}
 		

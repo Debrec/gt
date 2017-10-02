@@ -51,11 +51,11 @@ class Tareas extends Objeto {
 		} else {
 			$where = " status != 5 ";
 		}
-		$textos['id'] = 'ID';
+		/*$textos['id'] = 'ID';
 		$textos['nombre'] = 'Nombre';
-		$textos['descripcion'] = 'Descripción';
+		$textos['descripcion'] = 'Descripción';*/
 
-		parent::mostrar($numpag,$campos,isset($where) ? $where : null,$textos);
+		parent::mostrar($numpag,$campos,isset($where) ? $where : null);//,$textos);
 	}
 }
 
