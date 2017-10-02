@@ -16,7 +16,7 @@ class Usuarios extends Objeto {
 		parent::agregar($campos);
 	}
 
-	public function mostrar($numpag,$campos=null,$where=null) {
+	public function mostrar($numpag,$campos=null,$where=null,$textos=null) {
 		$campos['nombres'] = 0;
 		$campos['apellido'] = 0;
 		$campos['email'] = 0;

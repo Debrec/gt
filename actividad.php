@@ -81,7 +81,6 @@ class Actividad extends Objeto{
 		$campos['descripcion'] = $texto;
 		$campos['userid'] = $userid;
 		$campos['tareaid'] = $tareaid;
-		$tabla = 'actividad';
 		if (parent::agregar($campos)==-1) {
 			return -1;
 		}
@@ -91,14 +90,19 @@ class Actividad extends Objeto{
 		inicio_actividad($userid);
 	}
 
-	public function mostrar($numpag,$tareaid,$where=null) {
+	public function mostrar($numpag,$tareaid,$where=null,$textos=null) {
 		$campos['id'] = 0;
 		$campos['fecha_inicio'] = 0;
 		$campos['fecha_fin']=0;
-	//$campos['titulo'] = 0;
 		$campos['descripcion'] = 0;
-		$tabla = 'actividad';
-		parent::mostrar($numpag,$campos," tareaid = $tareaid ");
+
+		$textos['id'] = 'ID';
+		$textos['fecha_inicio'] = 'Fecha Inicio';
+		$textos['fecha_fin']= 'Fecha Fín';
+		$textos['descripcion'] = 'Descripción';
+		$textos['difdate'] = 'Duración';
+
+		parent::mostrar($numpag,$campos," tareaid = $tareaid ",$textos);
 	}
 }
 

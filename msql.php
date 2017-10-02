@@ -103,7 +103,7 @@ class Objeto {
 		$mysqli->close();
 	}
 
-	public function mostrar($numpag,$campos,$where='') {
+	public function get($numpag,$campos,$where='') {
 		$offset = ($numpag-1) * $this->regpp;
 		include('./conectar.php');
 		$i = 0;
@@ -112,15 +112,13 @@ class Objeto {
 		foreach ($campos as $clave => $valor) {
 			if ($i == 0) {
 				$variables .= ' '.$clave;
-				$valores .= "('$valor'";
 			} else {
 				$variables .= ','.$clave;
-				$valores .= ",'$valor'";
 			}
 			$i++;
 		}
 		if ($this->tabla == 'actividad') {
-			$variables .= ',timestampdiff(SECOND,fecha_inicio,fecha_fin)';
+			$variables .= ',timestampdiff(SECOND,fecha_inicio,fecha_fin) as difdate';
 		}
 
 		$query = "SELECT" . " $variables FROM  ".$this->tabla;
@@ -138,39 +136,13 @@ class Objeto {
 
 		if ($result = $mysqli->query($query)) {
 	  		if ($result->num_rows > 0) {
-				echo "<tr>";
-				foreach ($campos as $clave => $valor) {
-					echo "<th>$clave</th>";
+				$objetos = array();
+				while($fila = $result->fetch_object()) {
+					$objetos[] = $fila;
 				}
-				if ($this->tabla == "actividad") {
-					echo "<th>Duración</th>";
-				} else if ($this->tabla == "tarea") {
-					echo "<th>Borrar</th>";
-					echo "<th>Editar</th>";
-				}
-				echo "</tr>";
-				$i = 0;
-	   			while(($row = $result->fetch_array())) {
-					echo "<tr bgcolor=" . (($i%2) ? "#552729" : "#774949") .">";
-					for ($j=0;$j<count($campos);$j++) {
-						if($this->tabla == 'tarea' && $j == 1) {
-							echo "<td><a href='index.php?pag=actividad&tareaid=".$row[0]."'>".$row[$j]."</a></td>";
-						} else {
-							echo "<td>".$row[$j]."</td>";
-						}
-					} 
-					if ($this->tabla == 'actividad') {
-						echo "<td>".gmdate("H:i:s",$row[count($campos)])."</td>";				
-					}
-					if($this->tabla == 'tarea') {
-						echo "<td><a href='index.php?pag=tarea&tareaid=".$row[0]."&msg=del'>Borrar</a></td>";
-						echo "<td><a href='index.php?pag=tarea&tareaid=".$row[0]."&msg=editar'>Editar</a></td>";
-					}
-					echo "</tr>\n";
-					$i++;
-				}
-	   			 $result->close();
-	  		} else {
+				$result->close();
+				return $objetos;				
+			} else {
 	    		echo "<p class=failure>Error no se encontraron registros</p>";
 	  		}
 		} else {
@@ -178,6 +150,47 @@ class Objeto {
 	  		error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
 		}
 	}
+
+	public function mostrar($numpag,$campos,$where='',$textos=null) {
+		$objetos = $this->get($numpag,$campos);
+		if (count($objetos) > 0) {
+			echo "<tr>";
+			foreach ($objetos[0] as $clave => $valor) {
+				if (isset($textos[$clave])) {
+					echo "<th>".$textos[$clave]."</th>";
+				} else {
+					echo "<th>$clave</th>";
+				}
+			}
+			if ($this->tabla == "tarea") {
+				echo "<th>Borrar</th>";
+				echo "<th>Editar</th>";
+			}
+			echo "</tr>";
+			$i=0;
+			foreach ($objetos as $objeto) {
+				echo "<tr bgcolor=" . (($i%2) ? "#552729" : "#774949") .">";
+				foreach ($objeto as $clave => $valor) {
+					if($this->tabla == 'tarea' && $clave == 'nombre') {
+						echo "<td><a href='index.php?pag=actividad&tareaid=".$objeto->id."'>".$valor."</a></td>";
+					} else if ($this->tabla == 'actividad' && $clave == 'difdate') {
+						echo "<td>".gmdate("H:i:s",$valor)."</td>";
+					} else {
+						echo "<td>".$valor."</td>";
+					}
+				} 
+				if($this->tabla == 'tarea') {
+					echo "<td><a href='index.php?pag=tarea&tareaid=".$valor."&msg=del'>Borrar</a></td>";
+					echo "<td><a href='index.php?pag=tarea&tareaid=".$valor."&msg=editar'>Editar</a></td>";
+				}
+				echo "</tr>\n";
+				$i++;
+			}
+		} else {
+			echo "<p class=failure>Error no se encontraron registros</p>";
+		}
+	}
+		
 }	
 
 function svariables($table,$i1,$i2) {

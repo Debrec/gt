@@ -19,7 +19,7 @@ class Proyecto extends Objeto {
 	}
 
 
-	public function mostrar($numpag,$campos=null,$where=null) {
+	public function mostrar($numpag,$campos=null,$where=null,$textos=null) {
 		$campos['fecha'] = 0;
 		$campos['nombre'] = 0;
 		$campos['comentario'] = 0;

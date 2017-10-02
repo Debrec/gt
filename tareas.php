@@ -42,7 +42,7 @@ class Tareas extends Objeto {
 		parent::agregar($campos);
 	}
 
-	function mostrar($numpag,$status,$where=null) {
+	function mostrar($numpag,$status,$where=null,$textos=null) {
 		$campos['id'] = 0;
 		$campos['nombre'] = 0;
 		$campos['descripcion'] = 0;
@@ -51,8 +51,11 @@ class Tareas extends Objeto {
 		} else {
 			$where = " status != 5 ";
 		}
+		$textos['id'] = 'ID';
+		$textos['nombre'] = 'Nombre';
+		$textos['descripcion'] = 'Descripción';
 
-		parent::mostrar($numpag,$campos,isset($where) ? $where : null);
+		parent::mostrar($numpag,$campos,isset($where) ? $where : null,$textos);
 	}
 }
 
