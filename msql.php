@@ -30,42 +30,88 @@ function modificarstatus($tareaid,$status) {
 		echo "<p class=failure>Error falta id al borrar</p>";
 	}
 }*/
+class Objeto {
+	private $tabla = 'proyecto';
+	public $regpp =  6;
 
-function editar($id,$campos,$tabla) {
-	include('./conectar.php');
-	if($campos && isset($tabla)) {
-		$i=0;
-		$variables = '';
-		foreach ($campos as $clave => $valor) {
-			if ($i == 0) {
-				$variables .= "$clave = '$valor'";
-			} else {
-				$variables .= ",$clave = '$valor'";
-			}
-			$i++;
-		}
-		$query="UPDATE $tabla set  $variables where id = $id";
-		if (! $mysqli->query($query)) {
-			error_log("ERROR: No se pudo ejecutar $query. " . $mysqli->error,0);
-			echo "<p class=failure>¡Error al agregar el comentario al realizar query!</p>";
-		} else {
-			echo "<p class=succes>¡Se ha agregado con éxito!</p>";
-		}
-	} else {
-		echo "<p class=failure>¡Error al procesar el formulario!</p>";
+	public function __construct($tabla,$regpp=6) {
+		$this->tabla = $tabla;
+		$this->regpp = $regpp;
 	}
-	$mysqli->close();
-}
 
-function agregar($campos,$tabla) {
-	include('./conectar.php');
-	if(isset($campos) && isset($tabla)) {
-		$i=0;
+	public function editar($id,$campos) {
+		include('./conectar.php');
+		if($campos && isset($this->tabla)) {
+			$i=0;
+			$variables = '';
+			foreach ($campos as $clave => $valor) {
+				if ($i == 0) {
+					$variables .= "$clave = '$valor'";
+				} else {
+					$variables .= ",$clave = '$valor'";
+				}
+				$i++;
+			}
+			$query="UPDATE ".$this->tabla." set  $variables where id = $id";
+			if (! $mysqli->query($query)) {
+				error_log("ERROR: No se pudo ejecutar $query. " . $mysqli->error,0);
+				echo "<p class=failure>¡Error al agregar el comentario al realizar query!</p>";
+			} else {
+				echo "<p class=succes>¡Se ha agregado con éxito!</p>";
+			}
+		} else {
+			echo "<p class=failure>¡Error al procesar el formulario!</p>";
+		}
+		$mysqli->close();
+	}
+
+	public function agregar($campos) {
+		include('./conectar.php');
+		if(isset($campos) && isset($this->tabla)) {
+			$i=0;
+			$variables = '';
+			$valores = '';
+			foreach ($campos as $clave => $valor) {
+				if ($i == 0) {
+					$variables .= '('.$clave;
+					$valores .= "('$valor'";
+				} else {
+					$variables .= ','.$clave;
+					if ($clave == 'psw') {
+						$valores .= ",password('$valor')";						
+					} else {
+						$valores .= ",'$valor'";
+					}
+				}
+				$i++;
+			}
+			$variables .=')';
+			$valores .=')';
+			$query="INSERT INTO ".$this->tabla." $variables VALUES $valores";
+			if (! $mysqli->query($query)) {
+				error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
+				echo "<p class=failure>¡Error al agregar el comentario al realizar query!</p>";
+				$mysqli->close();
+				return -1;
+			} else {
+				echo "<p class=succes>¡Se ha agregado con éxito!</p>";
+				return 0;
+			}
+		} else {
+			echo "<p class=failure>¡Error al agregar el comentario!</p>";
+		}
+		$mysqli->close();
+	}
+
+	public function mostrar($numpag,$campos,$where='') {
+		$offset = ($numpag-1) * $this->regpp;
+		include('./conectar.php');
+		$i = 0;
 		$variables = '';
 		$valores = '';
 		foreach ($campos as $clave => $valor) {
 			if ($i == 0) {
-				$variables .= '('.$clave;
+				$variables .= ' '.$clave;
 				$valores .= "('$valor'";
 			} else {
 				$variables .= ','.$clave;
@@ -73,99 +119,66 @@ function agregar($campos,$tabla) {
 			}
 			$i++;
 		}
-		$variables .=')';
-		$valores .=')';
-		$query="INSERT INTO $tabla $variables VALUES $valores";
-		if (! $mysqli->query($query)) {
-			error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
-			echo "<p class=failure>¡Error al agregar el comentario al realizar query!</p>";
-			$mysqli->close();
-			return -1;
-		} else {
-			echo "<p class=succes>¡Se ha agregado con éxito!</p>";
-			return 0;
+		if ($this->tabla == 'actividad') {
+			$variables .= ',timestampdiff(SECOND,fecha_inicio,fecha_fin)';
 		}
-	} else {
-		echo "<p class=failure>¡Error al agregar el comentario!</p>";
-	}
-	$mysqli->close();
-}
 
-function mostrar($numpag,$regpp,$campos,$tabla,$where='') {
-	$offset = ($numpag-1) * $regpp;
-	include('./conectar.php');
-	$i = 0;
-	$variables = '';
-	$valores = '';
-	foreach ($campos as $clave => $valor) {
-		if ($i == 0) {
-			$variables .= ' '.$clave;
-			$valores .= "('$valor'";
-		} else {
-			$variables .= ','.$clave;
-			$valores .= ",'$valor'";
+		$query = "SELECT" . " $variables FROM  ".$this->tabla;
+		if ($where) {
+			$query .= " where $where ";
 		}
-		$i++;
-	}
-	if ($tabla == 'actividad') {
-		$variables .= ',timestampdiff(SECOND,fecha_inicio,fecha_fin)';
-	}
-
-	$query = "SELECT" . " $variables FROM  $tabla";
-	if ($where) {
-		$query .= " where $where ";
-	}
 	
-	if ($tabla == 'actividad') {
-		$query .= " order by fecha_inicio desc ";
-	} else if ($tabla != 'usuarios') {
-		$query .= " order by fecha desc ";
-	}
+		if ($this->tabla == 'actividad') {
+			$query .= " order by fecha_inicio desc ";
+		} else if ($this->tabla != 'usuarios') {
+			$query .= " order by fecha desc ";
+		}
 
-	$query .= " limit ".$offset.","."$regpp";
+		$query .= " limit ".$offset.",".$this->regpp;
 
-	if ($result = $mysqli->query($query)) {
-	  if ($result->num_rows > 0) {
-			echo "<tr>";
-			foreach ($campos as $clave => $valor) {
-				echo "<th>$clave</th>";
-			}
-			if ($tabla == "actividad") {
-				echo "<th>Duración</th>";
-			} else if ($tabla == "tarea") {
-				echo "<th>Borrar</th>";
-				echo "<th>Editar</th>";
-			}
-			echo "</tr>";
-			$i = 0;
-	    while(($row = $result->fetch_array())) {
-				echo "<tr bgcolor=" . (($i%2) ? "#552729" : "#774949") .">";
-				for ($j=0;$j<count($campos);$j++) {
-					if($tabla == 'tarea' && $j == 1) {
-						echo "<td><a href='index.php?pag=actividad&tareaid=".$row[0]."'>".$row[$j]."</a></td>";
-					} else {
-						echo "<td>".$row[$j]."</td>";
+		if ($result = $mysqli->query($query)) {
+	  		if ($result->num_rows > 0) {
+				echo "<tr>";
+				foreach ($campos as $clave => $valor) {
+					echo "<th>$clave</th>";
+				}
+				if ($this->tabla == "actividad") {
+					echo "<th>Duración</th>";
+				} else if ($this->tabla == "tarea") {
+					echo "<th>Borrar</th>";
+					echo "<th>Editar</th>";
+				}
+				echo "</tr>";
+				$i = 0;
+	   			while(($row = $result->fetch_array())) {
+					echo "<tr bgcolor=" . (($i%2) ? "#552729" : "#774949") .">";
+					for ($j=0;$j<count($campos);$j++) {
+						if($this->tabla == 'tarea' && $j == 1) {
+							echo "<td><a href='index.php?pag=actividad&tareaid=".$row[0]."'>".$row[$j]."</a></td>";
+						} else {
+							echo "<td>".$row[$j]."</td>";
+						}
+					} 
+					if ($this->tabla == 'actividad') {
+						echo "<td>".gmdate("H:i:s",$row[count($campos)])."</td>";				
 					}
-				} 
-				if ($tabla == 'actividad') {
-					echo "<td>".gmdate("H:i:s",$row[count($campos)])."</td>";				
+					if($this->tabla == 'tarea') {
+						echo "<td><a href='index.php?pag=tarea&tareaid=".$row[0]."&msg=del'>Borrar</a></td>";
+						echo "<td><a href='index.php?pag=tarea&tareaid=".$row[0]."&msg=editar'>Editar</a></td>";
+					}
+					echo "</tr>\n";
+					$i++;
 				}
-				if($tabla == 'tarea') {
-					echo "<td><a href='index.php?pag=tarea&tareaid=".$row[0]."&msg=del'>Borrar</a></td>";
-					echo "<td><a href='index.php?pag=tarea&tareaid=".$row[0]."&msg=editar'>Editar</a></td>";
-				}
-				echo "</tr>\n";
-				$i++;
-			}
-	    $result->close();
-	  } else {
-	    echo "<p class=failure>Error no se encontraron registros</p>";
-	  }
-	} else {
-		echo "<p class=failure>Error al ejecutar query : $query</p>";
-	  error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
+	   			 $result->close();
+	  		} else {
+	    		echo "<p class=failure>Error no se encontraron registros</p>";
+	  		}
+		} else {
+			echo "<p class=failure>Error al ejecutar query : $query</p>";
+	  		error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
+		}
 	}
-}
+}	
 
 function svariables($table,$i1,$i2) {
 	include('./conectar.php');

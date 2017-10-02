@@ -122,10 +122,11 @@ function fechahora(cod,fechaArr,fecha,hora,minu,sec,curf,curh,curm,curs) {
 	var opth,selectfecha,selecthour,selectmin,selectsec,i,fecha,hora,minu,sec,cod,curh,curm,curs,fin;
 	selectfecha = document.getElementById("fecha"+cod);
 	var f = new Date();
-	curf = f.getFullYear()+"-"+pad(f.getMonth()+1,2)+"-"+pad(f.getDate());
+	curf = f.getFullYear()+"-"+pad(f.getMonth()+1,2)+"-"+pad(f.getDate(),2);
 	curh = f.getHours();
 	curm = f.getMinutes();
 	curs = f.getSeconds();
+	//alert(fecha+" "+curf);
 	if (fecha != curf) {
 		sel = fecha;
 		svf = 1;

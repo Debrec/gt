@@ -1,60 +1,66 @@
 <?php
 $error = array();
+class Tareas extends Objeto {
 
-function borrartarea($tareaid) {
-	modificarstatus($tareaid,5);
-	//borrar('tarea',$tareaid);
-}
+	public $tabla = 'tarea';
 
-function editartarea($tareaid,$nombre,$texto,$userid,$proyectid) {
-	$tarea = sobject('tarea',$tareaid);
-	if (isset($nombre) && ($nombre != $tarea->nombre)) {
+	public function __construct() {
+		parent::__construct($this->tabla);
+	}
+	
+	public function borrar($tareaid) {
+		modificarstatus($tareaid,5);
+	}
+
+	public function editar($tareaid,$nombre,$texto=null,$userid=null,$proyectid=null) {
+		$tarea = sobject('tarea',$tareaid);
+		if (isset($nombre) && ($nombre != $tarea->nombre)) {
+			$campos['nombre'] = $nombre;
+		}
+		$texto = trim($texto);
+		$texto = nl2br($texto);
+		if (isset($texto) && ($texto != $tarea->descripcion)) {
+			$campos['descripcion'] = $texto;
+		}
+		if (isset($userid) && ($userid != $tarea->userid)) {
+			$campos['userid'] = $userid;
+		}
+		if (isset($proyectid) && ($proyectid != $tarea->proyectid)) {
+			$campos['proyectid'] = $proyectid;
+		}
+		parent::editar($tareaid,$campos);
+	}
+
+	function agregar($nombre,$texto=null,$userid=null,$proyectid=null) {
+		$campos['fecha']=date("Y-m-d H:i:s");
 		$campos['nombre'] = $nombre;
-	}
-	$texto = trim($texto);
-	$texto = nl2br($texto);
-	if (isset($texto) && ($texto != $tarea->descripcion)) {
+		$texto = trim($texto);
+		$texto = nl2br($texto);
 		$campos['descripcion'] = $texto;
-	}
-	if (isset($userid) && ($userid != $tarea->userid)) {
 		$campos['userid'] = $userid;
-	}
-	if (isset($proyectid) && ($proyectid != $tarea->proyectid)) {
 		$campos['proyectid'] = $proyectid;
-	}
-	$tabla = 'tarea';
-	editar($tareaid,$campos,$tabla);
-}
-
-function agregartarea($nombre,$texto,$userid,$proyectid) {
-	$campos['fecha']=date("Y-m-d H:i:s");
-	$campos['nombre'] = $nombre;
-	$texto = trim($texto);
-	$texto = nl2br($texto);
-	$campos['descripcion'] = $texto;
-	$campos['userid'] = $userid;
-	$campos['proyectid'] = $proyectid;
-	$tabla = 'tarea';
-	agregar($campos,$tabla);
-}
-
-function mostrartarea($numpag,$regpp,$status) {
-	$campos['id'] = 0;
-	$campos['nombre'] = 0;
-	$campos['descripcion'] = 0;
-	$tabla = 'tarea';
-	if (isset($status) && $status != 4) {
-		$where = " status = $status ";
-	} else {
-		$where = " status != 5 ";
+		parent::agregar($campos);
 	}
 
-	mostrar($numpag,$regpp,$campos,$tabla,isset($where) ? $where : null);
+	function mostrar($numpag,$status,$where=null) {
+		$campos['id'] = 0;
+		$campos['nombre'] = 0;
+		$campos['descripcion'] = 0;
+		if (isset($status) && $status != 4) {
+			$where = " status = $status ";
+		} else {
+			$where = " status != 5 ";
+		}
+
+		parent::mostrar($numpag,$campos,isset($where) ? $where : null);
+	}
 }
+
+$tarea = new Tareas();
 
 if ($msg == 'add') {
 		if ($nombre && $texto && $userid && $proyectid) {
-			agregartarea($nombre,$texto,$userid,$proyectid);
+			$tarea->agregar($nombre,$texto,$userid,$proyectid);
 		} else {
 			if (!$nombre) {
 				$error['nombre']=1;
@@ -71,10 +77,10 @@ if ($msg == 'add') {
 			echo "Error : Campos vacios o incompletos";
 		}
 } else if ($msg == 'del') {
-	borrartarea($tareaid);
+	$tarea->borrar($tareaid);
 } else if ($msg == 'edit') {
 	if ($tareaid && $nombre && $texto && $userid && $proyectid) {
-		editartarea($tareaid,$nombre,$texto,$userid,$proyectid);
+		$tarea->editar($tareaid,$nombre,$texto,$userid,$proyectid);
 	} else {
 		if (!$nombre) {
 			$error['nombre']=1;
@@ -92,11 +98,11 @@ if ($msg == 'add') {
 }
 
 if ($msg == 'editar') {
-	$tarea = sobject('tarea',$tareaid);
-	$nombre = $tarea->nombre;
-	$texto = $tarea->descripcion;
-	$userid = $tarea->userid;
-	$proyectid = $tarea->proyectid;
+	$tareao = sobject('tarea',$tareaid);
+	$nombre = $tareao->nombre;
+	$texto = $tareao->descripcion;
+	$userid = $tareao->userid;
+	$proyectid = $tareao->proyectid;
 }
 include('./scripts.php');
 ?>
@@ -112,7 +118,6 @@ include('./scripts.php');
 				$vars[0] = "Tarea Sin Comenzar";
 				$vars[1] = "Tarea Comenzada";
 				$vars[2] = "Tarea Finalizada";
-				$vars[3] = "Pedido de definiciones";
 				$vars[4] = "Todas las tareas";
 				if (!isset($status)) {
 					$status = 4;
@@ -127,12 +132,13 @@ include('./scripts.php');
 	</table>
 </form>
 <table border=1 align="center">
-<?php mostrartarea(isset($numpag) ? $numpag : 1,6,$status); ?>
+<?php $tarea->mostrar(isset($numpag) ? $numpag : 1,$status); ?>
 </table>
 <br>
 <?php
 	include('./funciones.php');
-	paginas(isset($numpag) ? $numpag : 1,6,'tarea','tarea',0,$status);
+	$pagina = new Paginas($tarea->tabla,$tarea->regpp);
+	$pagina->paginas(isset($numpag) ? $numpag : 1,0,$status);
 ?>
 <br>
 <?php

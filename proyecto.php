@@ -1,26 +1,37 @@
 <?php
 $error = array();
-function agregarproyecto($nombre,$comentario) {
-	$campos['fecha']=date("Y-m-d H:i:s");
-	$campos['nombre'] = $nombre;
-	$comentario = trim($comentario);
-	$comentario = nl2br($comentario);
-	$campos['comentario'] = $comentario;
-	$tabla = 'proyecto';
-	agregar($campos,$tabla);
+class Proyecto extends Objeto {
+
+	private $tabla = 'proyecto';
+	//public $regpp = 6;
+
+	function __construct() {
+		parent::__construct($this->tabla,$this->regpp);
+	}
+
+	public function agregar($nombre,$comentario=null) {
+		$campos['fecha']=date("Y-m-d H:i:s");
+		$campos['nombre'] = $nombre;
+		$comentario = trim($comentario);
+		$comentario = nl2br($comentario);
+		$campos['comentario'] = $comentario;
+		parent::agregar($campos);
+	}
+
+
+	public function mostrar($numpag,$campos=null,$where=null) {
+		$campos['fecha'] = 0;
+		$campos['nombre'] = 0;
+		$campos['comentario'] = 0;
+		parent::mostrar($numpag,$campos);
+	}
 }
 
-function mostrarproyecto($numpag,$regpp) {
-	$campos['fecha'] = 0;
-	$campos['nombre'] = 0;
-	$campos['comentario'] = 0;
-	$tabla = 'proyecto';
-	mostrar($numpag,$regpp,$campos,$tabla);
-}
+$proyecto = new Proyecto();
 
 if ($msg == 'add') {
 		if ($nombre && $comentario) {
-			agregarproyecto($nombre,$comentario);
+			$proyecto->agregar($nombre,$comentario);
 		} else {
 			if (!$nombre) {
 				$error['nombre'] = 1;
@@ -35,12 +46,13 @@ if ($msg == 'add') {
 <h1 class="subt">Proyectos</h1>
 <p>Proyectos</p>
 <table border=1 align="center">
-<?php mostrarproyecto(isset($numpag) ? $numpag : 1,6); ?>
+<?php $proyecto->mostrar(isset($numpag) ? $numpag : 1); ?>
 </table>
 <br>
 <?php
 	include('./funciones.php');
-	paginas(isset($numpag) ? $numpag : 1,6,'proyecto','proyecto');
+	$paginas = new Paginas("proyecto",$proyecto->regpp);
+	$paginas->paginas(isset($numpag) ? $numpag : 1);
 ?>
 <br>
 <p>Agregar proyecto</p>

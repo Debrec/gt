@@ -65,34 +65,44 @@
 <?php } ?>
 <?php
 
-function agregaractividad($texto,$userid,$tareaid,$status,$fecha_inicio,$fecha_fin) {
-	$campos['fecha_inicio']=$fecha_inicio;
-	$campos['fecha_fin']=$fecha_fin;
-	//$campos['titulo'] = "";
-	$texto = trim($texto);
-	$texto = nl2br($texto);
-	$campos['descripcion'] = $texto;
-	$campos['userid'] = $userid;
-	$campos['tareaid'] = $tareaid;
-	$tabla = 'actividad';
-	if (agregar($campos,$tabla)==-1) {
-		return -1;
+class Actividad extends Objeto{
+	public $tabla = "actividad";
+
+	public function __construct() {
+		parent::__construct($this->tabla);
 	}
-	if ($status == 0) {
-		modificarstatus($tareaid,1);
+
+	public function agregar($texto,$userid=null,$tareaid=null,$status=null,$fecha_inicio=null,$fecha_fin=null) {
+		$campos['fecha_inicio']=$fecha_inicio;
+		$campos['fecha_fin']=$fecha_fin;
+		//$campos['titulo'] = "";
+		$texto = trim($texto);
+		$texto = nl2br($texto);
+		$campos['descripcion'] = $texto;
+		$campos['userid'] = $userid;
+		$campos['tareaid'] = $tareaid;
+		$tabla = 'actividad';
+		if (parent::agregar($campos)==-1) {
+			return -1;
+		}
+		if ($status == 0) {
+			modificarstatus($tareaid,1);
+		}
+		inicio_actividad($userid);
 	}
-	inicio_actividad($userid);
+
+	public function mostrar($numpag,$tareaid,$where=null) {
+		$campos['id'] = 0;
+		$campos['fecha_inicio'] = 0;
+		$campos['fecha_fin']=0;
+	//$campos['titulo'] = 0;
+		$campos['descripcion'] = 0;
+		$tabla = 'actividad';
+		parent::mostrar($numpag,$campos," tareaid = $tareaid ");
+	}
 }
 
-function mostraractividad($numpag,$regpp,$tareaid) {
-	$campos['id'] = 0;
-	$campos['fecha_inicio'] = 0;
-	$campos['fecha_fin']=0;
-	//$campos['titulo'] = 0;
-	$campos['descripcion'] = 0;
-	$tabla = 'actividad';
-	mostrar($numpag,$regpp,$campos,$tabla," tareaid = $tareaid ");
-}
+$actividad = new Actividad();
 
 function checkst($status,$error) {
 	if (isset($status) && (($status == 0) || ($status == 1) || ($status == 2) || ($status == 3))) {
@@ -107,7 +117,7 @@ if ($msg == 'add') {
 	$fecha_inicio = sprintf("%s %s:%s:%s",$fechaArr[$fechaini],$horaini,$minini,$secini);
 	$fecha_fin = sprintf("%s %s:%s:%s",$fechaArr[$fechafin],$horafin,$minfin,$secfin);
 	if ($texto && $useridl && $tareaid && checkst($status,$error)) {
-		if(agregaractividad($texto,$useridl,$tareaid,$status,$fecha_inicio,$fecha_fin) == -1) {
+		if($actividad->agregar($texto,$useridl,$tareaid,$status,$fecha_inicio,$fecha_fin) == -1) {
 			$error['fecha_inicio']=1;
 			echo "<p class=failure>Error al agregar actividad campos incorrectos</p>";
 		} 	
@@ -126,12 +136,13 @@ include('./scripts.php');
 
 <h1 class="subt">Actividades</h1>
 <table border=1 align="center">
-<?php mostraractividad(isset($numpag) ? $numpag : 1,6,$tareaid); ?>
+<?php $actividad->mostrar(isset($numpag) ? $numpag : 1,$tareaid); ?>
 </table>
 <br>
 <?php
 	include('./funciones.php');
-	paginas(isset($numpag) ? $numpag : 1,6,'actividad','actividad',$tareaid);
+	$pagina = new Paginas($actividad->tabla,$actividad->regpp);
+	$pagina->paginas(isset($numpag) ? $numpag : 1,$tareaid);
 ?>
 <br>
 

@@ -24,7 +24,7 @@
 	function obtener_fecha($userid) {
 		if (isset($userid)) {
 			include('./conectar.php');
-			$query = "select fecha from gt.inicio_actividad where userid=$userid";
+			$query = "select fecha from inicio_actividad where userid=$userid";
 			if ($result = $mysqli->query($query)) {
 		    	$row = $result->fetch_array()[0];
 			}

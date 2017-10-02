@@ -111,6 +111,7 @@
 		if (!isset($pag)) {
 			include('./tareas.php');
 		} else if ($pag == 'usuarios') {
+			$password = asignar($_POST,'password');
 			include('./usuarios.php');
 		} else if ($pag == 'proyecto') {
 			include('./proyecto.php');
