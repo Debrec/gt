@@ -77,7 +77,6 @@ class Actividad extends Objeto{
 	public function agregar($texto,$userid=null,$tareaid=null,$status=null,$fecha_inicio=null,$fecha_fin=null) {
 		$campos['fecha_inicio']=$fecha_inicio;
 		$campos['fecha_fin']=$fecha_fin;
-		//$campos['titulo'] = "";
 		$texto = trim($texto);
 		$texto = nl2br($texto);
 		$campos['descripcion'] = $texto;
@@ -97,12 +96,6 @@ class Actividad extends Objeto{
 		$campos['fecha_inicio'] = 0;
 		$campos['fecha_fin']=0;
 		$campos['descripcion'] = 0;
-
-	/*	$textos['id'] = 'ID';
-		$textos['fecha_inicio'] = 'Fecha Inicio';
-		$textos['fecha_fin']= 'Fecha Fín';
-		$textos['descripcion'] = 'Descripción';
-		$textos['difdate'] = 'Duración';*/
 
 		parent::mostrar($numpag,$campos," tareaid = $tareaid ");//,$textos);
 	}
@@ -158,13 +151,11 @@ echo '<form name="fcont" method="post"
  action="./index.php?pag=actividad&msg=add&tareaid='.$tareaid.'">';
 ?>
 	<table width="100%">
-		<!--<tr><td>Nombre</td><td><input name="nombre" id="nombre" type="text" size="50" maxlength="100" value="<?php echo $nombre ?>"><?php errorform($error,'nombre'); ?></td></tr>-->
 		<tr><td>Descripcion</td><td><textarea name="descripcion" title="descripcion" maxlength="1000" cols="50" rows="10" label="Descripcion"><?php echo $texto ?></textarea><?php errorform($error,'descripcion'); ?></td></tr>
 		<tr><td>Inicio : </td><td>
 			<?php
 				$fecha_inicio=$inicio_actividad->obtener_fecha($useridl);
-                //selectfield('inicio_actividad','fecha',$useridl);
-				if (isset($fecha_inicio)) {
+        		if (isset($fecha_inicio)) {
 					$fecha = substr($fecha_inicio,0,10);
 					$hora = substr($fecha_inicio,11,2);
 					$min = substr($fecha_inicio,14,2);
@@ -185,7 +176,7 @@ echo '<form name="fcont" method="post"
 			$curm = date("i");
 			$curs = date("s");
 			$curf = date("Y-m-d");
-			fechahora("fin",$fechaArrStr,$fechafin ? $fechafin : $fecha,$horafin ? $horafin : $hora,$minfin ? $minfin : $min,$secfin ? $secfin : $sec)		
+			fechahora("fin",$fechaArrStr,$fechafin ? $fechafin : $curf,$horafin ? $horafin : $curh,$minfin ? $minfin : $curm,$secfin ? $secfin : $curs);		
 			?>
 			
 		</td></tr>
@@ -193,11 +184,8 @@ echo '<form name="fcont" method="post"
 	</table>
 </form>
 <script type="text/javascript">	
-	fechahora(<?php echo "\"ini\",".$fechaArrStr.",".($fechaini ? "\"".$fechaini."\"" : "\"".$fecha."\"").",".($horaini ? $horaini : $hora).",".($minini ? $minini : $min).",".($secini ? $secini : $sec)
-	.",\"".$curf."\"".",".$curh.",".$curm.",".$curs; ?>);
-	fechahora(<?php echo "\"fin\",".$fechaArrStr.",".($fechafin ? "\"".$fechafin."\"" : "\"".$fecha."\"").",".($horafin ? $horafin : $hora).",".($minfin ? $minfin : $min).",".($secfin ? $secfin : $sec)
-	.",\"".$curf."\"".",".$curh.",".$curm.",".$curs; ?>);
-	
+	fechahora(<?php echo "\"ini\",".$fechaArrStr.",".($fechaini ? "\"".$fechaini."\"" : "\"".$fecha."\"").",".($horaini ? $horaini : $hora).",".($minini ? $minini : $min).",".($secini ? $secini : $sec) ?>);
+	fechahora(<?php echo "\"fin\",".$fechaArrStr.",".($fechafin ? "\"".$fechafin."\"" : "\"".$curf."\"").",".($horafin ? $horafin : $curh).",".($minfin ? $minfin : $curm).",".($secfin ? $secfin : $curs) ?>);	
 </script>
 
 

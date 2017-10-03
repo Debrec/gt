@@ -118,7 +118,8 @@ function updatefechahora(cod,fechaArray,curf,curh,curm,curs) {
 	}
 }*/
 
-function fechahora(cod,fechaArr,fecha,hora,minu,sec,curf,curh,curm,curs) {
+//function fechahora(cod,fechaArr,fecha,hora,minu,sec,curf,curh,curm,curs) {
+function fechahora(cod,fechaArr,fecha,hora,minu,sec) {
 	var opth,selectfecha,selecthour,selectmin,selectsec,i,fecha,hora,minu,sec,cod,curh,curm,curs,fin;
 	selectfecha = document.getElementById("fecha"+cod);
 	var f = new Date();

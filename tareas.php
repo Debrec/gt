@@ -3,8 +3,10 @@ $error = array();
 class Tareas extends Objeto {
 
 	//public $tabla = 'tarea';
+    public $userid = 0;
 
-	public function __construct() {
+	public function __construct($useridl) {
+        $this->userid = $useridl;
 		parent::__construct(TABLAS::TAREAS);
 	}
 	
@@ -51,15 +53,18 @@ class Tareas extends Objeto {
 		} else {
 			$where = " status != 5 ";
 		}
-		/*$textos['id'] = 'ID';
-		$textos['nombre'] = 'Nombre';
-		$textos['descripcion'] = 'Descripción';*/
+        
+        if (isset($where)) {
+        	$where .= "and userid = ".$this->userid." ";
+        } else {
+            $where = "and userid = ".$this->userid." ";
+        }
 
-		parent::mostrar($numpag,$campos,isset($where) ? $where : null);//,$textos);
+		parent::mostrar($numpag,$campos,isset($where) ? $where : null);
 	}
 }
 
-$tareas= new Tareas();
+$tareas= new Tareas($useridl);
 
 if ($msg == 'add') {
 		if ($nombre && $texto && $userid && $proyectid) {

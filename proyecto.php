@@ -2,7 +2,7 @@
 $error = array();
 class Proyecto extends Objeto {
 
-	private $tabla = 'proyecto';
+//private $tabla = 'proyecto';
 	//public $regpp = 6;
 
 	function __construct() {

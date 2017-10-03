@@ -1,6 +1,6 @@
 <?php
 class Usuarios extends Objeto {
-	private $tabla = 'usuarios';
+	//private $tabla = 'usuarios';
 
 	function __construct() {
 		parent::__construct($this->tabla);
