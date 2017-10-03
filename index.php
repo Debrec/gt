@@ -118,18 +118,11 @@
 		} else if ($pag == 'tarea') {
 			include('./tareas.php');
 		} else if ($pag=='actividad') {
-			/*$anofin = asignar($_POST,'anofin');
-			$mesfin = asignar($_POST,'mesfin');
-			$diafin = asignar($_POST,'diafin');*/
 			$fechafin = asignar($_POST,'fechafin');
 			$horafin = asignar($_POST,'horafin');
 			$minfin = asignar($_POST,'minfin');
 			$secfin = asignar($_POST,'secfin');
 			
-			
-			/*$anoini = asignar($_POST,'anoini');
-			$mesini = asignar($_POST,'mesini');
-			$diaini = asignar($_POST,'diaini');*/
 			$fechaini = asignar($_POST,'fechaini');
 			$horaini = asignar($_POST,'horaini');
 			$minini = asignar($_POST,'minini');

@@ -1,7 +1,7 @@
 <?php
 	include('inicio_actividad.php');
 	if ($msg == 'reset') {
-		inicio_actividad($useridl);
+        $inicio_actividad->inicio_actividad($useridl);
 	}	
 
 ?>
@@ -11,5 +11,5 @@
 	<li><a href="index.php?pag=tarea">Tarea</a></li>
 	<li><a href="logout.php">Logout</a></li>
 	<li><a href="index.php?pag=tarea&msg=reset">Reset Time</a></li>
-	<li><span id="fi">Fecha Inicio: <?php echo obtener_fecha($useridl); ?></span></li>
+	<li><span id="fi">Fecha Inicio: <?php echo $inicio_actividad->obtener_fecha($useridl); ?></span></li>
 </ul>

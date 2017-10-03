@@ -2,10 +2,10 @@
 $error = array();
 class Tareas extends Objeto {
 
-	public $tabla = 'tarea';
+	//public $tabla = 'tarea';
 
 	public function __construct() {
-		parent::__construct($this->tabla);
+		parent::__construct(TABLAS::TAREAS);
 	}
 	
 	public function borrar($tareaid) {
@@ -13,7 +13,7 @@ class Tareas extends Objeto {
 	}
 
 	public function editar($tareaid,$nombre,$texto=null,$userid=null,$proyectid=null) {
-		$tarea = sobject('tarea',$tareaid);
+		$tarea = sobject($this->tabla,$tareaid);
 		if (isset($nombre) && ($nombre != $tarea->nombre)) {
 			$campos['nombre'] = $nombre;
 		}
@@ -59,11 +59,11 @@ class Tareas extends Objeto {
 	}
 }
 
-$tarea = new Tareas();
+$tareas= new Tareas();
 
 if ($msg == 'add') {
 		if ($nombre && $texto && $userid && $proyectid) {
-			$tarea->agregar($nombre,$texto,$userid,$proyectid);
+			$tareas->agregar($nombre,$texto,$userid,$proyectid);
 		} else {
 			if (!$nombre) {
 				$error['nombre']=1;
@@ -80,10 +80,10 @@ if ($msg == 'add') {
 			echo "Error : Campos vacios o incompletos";
 		}
 } else if ($msg == 'del') {
-	$tarea->borrar($tareaid);
+	$tareas->borrar($tareaid);
 } else if ($msg == 'edit') {
 	if ($tareaid && $nombre && $texto && $userid && $proyectid) {
-		$tarea->editar($tareaid,$nombre,$texto,$userid,$proyectid);
+		$tareas->editar($tareaid,$nombre,$texto,$userid,$proyectid);
 	} else {
 		if (!$nombre) {
 			$error['nombre']=1;
@@ -101,7 +101,7 @@ if ($msg == 'add') {
 }
 
 if ($msg == 'editar') {
-	$tareao = sobject('tarea',$tareaid);
+	$tareao = sobject($tareas->tabla,$tareaid);
 	$nombre = $tareao->nombre;
 	$texto = $tareao->descripcion;
 	$userid = $tareao->userid;
@@ -135,12 +135,12 @@ include('./scripts.php');
 	</table>
 </form>
 <table border=1 align="center">
-<?php $tarea->mostrar(isset($numpag) ? $numpag : 1,$status); ?>
+<?php $tareas->mostrar(isset($numpag) ? $numpag : 1,$status); ?>
 </table>
 <br>
 <?php
 	include('./funciones.php');
-	$pagina = new Paginas($tarea->tabla,$tarea->regpp);
+	$pagina = new Paginas($tareas->tabla,$tareas->regpp);
 	$pagina->paginas(isset($numpag) ? $numpag : 1,0,$status);
 ?>
 <br>
@@ -167,7 +167,7 @@ include('./scripts.php');
 			<td>
 				<select name="userid">
 					<?php
-						$usuarios=svariables('usuarios',0,4);
+						$usuarios=svariables(TABLAS::USUARIOS,0,4);
 						$userid = isset($userid)  ? $userid : $useridl;
 						foreach ($usuarios as $clave => $valor) {
 						echo "<option value='$clave'".(($userid == $clave) ? 'selected' : '').">$valor</option>\n";
@@ -179,7 +179,7 @@ include('./scripts.php');
 			<td>
 				<select name="proyectid">
 					<?php
-						$proyectos=svariables('proyecto',0,2);
+						$proyectos=svariables(TABLAS::PROYECTOS,0,2);
 						$proyectid = isset($proyectid)  ? $proyectid : 1;
 						foreach ($proyectos as $clave => $valor) {
 						echo "<option value='$clave'".(($proyectid == $clave) ? 'selected' : '').">$valor</option>\n";

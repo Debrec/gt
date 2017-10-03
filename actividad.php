@@ -67,9 +67,11 @@
 
 class Actividad extends Objeto{
 	public $tabla = "actividad";
-
-	public function __construct() {
-		parent::__construct($this->tabla);
+    public $init_act = 0;
+    
+	public function __construct($init_act) {
+        $this->init_act = $init_act;
+        parent::__construct($this->tabla);
 	}
 
 	public function agregar($texto,$userid=null,$tareaid=null,$status=null,$fecha_inicio=null,$fecha_fin=null) {
@@ -87,7 +89,7 @@ class Actividad extends Objeto{
 		if ($status == 0) {
 			modificarstatus($tareaid,1);
 		}
-		inicio_actividad($userid);
+		$this->init_act->inicio_actividad($userid);
 	}
 
 	public function mostrar($numpag,$tareaid,$where=null,$textos=null) {
@@ -106,7 +108,7 @@ class Actividad extends Objeto{
 	}
 }
 
-$actividad = new Actividad();
+$actividad = new Actividad($inicio_actividad);
 
 function checkst($status,$error) {
 	if (isset($status) && (($status == 0) || ($status == 1) || ($status == 2) || ($status == 3))) {
@@ -160,7 +162,8 @@ echo '<form name="fcont" method="post"
 		<tr><td>Descripcion</td><td><textarea name="descripcion" title="descripcion" maxlength="1000" cols="50" rows="10" label="Descripcion"><?php echo $texto ?></textarea><?php errorform($error,'descripcion'); ?></td></tr>
 		<tr><td>Inicio : </td><td>
 			<?php
-				$fecha_inicio=selectfield('inicio_actividad','fecha',$useridl);
+				$fecha_inicio=$inicio_actividad->obtener_fecha($useridl);
+                //selectfield('inicio_actividad','fecha',$useridl);
 				if (isset($fecha_inicio)) {
 					$fecha = substr($fecha_inicio,0,10);
 					$hora = substr($fecha_inicio,11,2);

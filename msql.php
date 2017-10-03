@@ -15,32 +15,31 @@ function modificarstatus($tareaid,$status) {
 		$mysqli->close();
 }
 
-/*function borrar($tabla,$id) {
-	include('./conectar.php');
-	if (isset($id)) {
-		$query = "delete from $tabla where id=$id";
-		if (! $mysqli->query($query)) {
-			error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
-			echo "<p class=failure>¡Error al eliminar fila!</p>";
-		} else {
-			echo "<p class=succes>¡Se ha eliminado la fila con exito!</p>";
-		}
-		$mysqli->close();
-	} else {
-		echo "<p class=failure>Error falta id al borrar</p>";
-	}
-}*/
+class Tablas {
+    const USUARIOS = 'usuarios';
+    const TAREAS = 'tarea';
+    const PROYECTOS = 'proyecto';
+    const ACTIVIDADES = 'actividad';
+}
+
 class Objeto {
-	private $tabla = 'proyecto';
+    private $mysqli = false;
+	public $tabla = TABLAS::TAREAS;
 	public $regpp =  6;
 
 	public function __construct($tabla,$regpp=6) {
 		$this->tabla = $tabla;
 		$this->regpp = $regpp;
+        include('./conectar.php');
+        $this->mysqli = $mysqli; 
 	}
+    
+    public function __destruct() {
+        $this->mysqli->close();
+    }
 
 	public function editar($id,$campos) {
-		include('./conectar.php');
+		//include('./conectar.php');
 		if($campos && isset($this->tabla)) {
 			$i=0;
 			$variables = '';
@@ -53,7 +52,7 @@ class Objeto {
 				$i++;
 			}
 			$query="UPDATE ".$this->tabla." set  $variables where id = $id";
-			if (! $mysqli->query($query)) {
+			if (! $this->mysqli->query($query)) {
 				error_log("ERROR: No se pudo ejecutar $query. " . $mysqli->error,0);
 				echo "<p class=failure>¡Error al agregar el comentario al realizar query!</p>";
 			} else {
@@ -62,11 +61,11 @@ class Objeto {
 		} else {
 			echo "<p class=failure>¡Error al procesar el formulario!</p>";
 		}
-		$mysqli->close();
+		//$mysqli->close();
 	}
 
 	public function agregar($campos) {
-		include('./conectar.php');
+		//include('./conectar.php');
 		if(isset($campos) && isset($this->tabla)) {
 			$i=0;
 			$variables = '';
@@ -88,7 +87,7 @@ class Objeto {
 			$variables .=')';
 			$valores .=')';
 			$query="INSERT INTO ".$this->tabla." $variables VALUES $valores";
-			if (! $mysqli->query($query)) {
+			if (! $this->mysqli->query($query)) {
 				error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
 				echo "<p class=failure>¡Error al agregar el comentario al realizar query!</p>";
 				$mysqli->close();
@@ -100,12 +99,12 @@ class Objeto {
 		} else {
 			echo "<p class=failure>¡Error al agregar el comentario!</p>";
 		}
-		$mysqli->close();
+		//$mysqli->close();
 	}
 
 	public function get($numpag,$campos,$where='') {
 		$offset = ($numpag-1) * $this->regpp;
-		include('./conectar.php');
+		//include('./conectar.php');
 		$i = 0;
 		$variables = '';
 		$valores = '';
@@ -134,7 +133,7 @@ class Objeto {
 
 		$query .= " limit ".$offset.",".$this->regpp;
 
-		if ($result = $mysqli->query($query)) {
+		if ($result = $this->mysqli->query($query)) {
 	  		if ($result->num_rows > 0) {
 				$objetos = array();
 				while($fila = $result->fetch_object()) {
@@ -147,6 +146,7 @@ class Objeto {
 			echo "<p class=failure>Error al ejecutar query : $query</p>";
 	  		error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
 		}
+		//$mysqli->close();
 	}
 
 	public function mostrar($numpag,$campos,$where='',$textos=null) {
@@ -225,6 +225,7 @@ function svariables($table,$i1,$i2) {
 		echo "<p class=failure>Error al ejecutar query : $query</p>";
 	  error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
 	}
+	$mysqli->close();
 }
 
 function sobject($table,$id) {
@@ -238,6 +239,7 @@ function sobject($table,$id) {
 		echo "<p class=failure>Error al ejecutar query</p>";
 	  error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
 	}
+	$mysqli->close();
 }
 
 function selectfield($table,$campo,$id=NULL) {
@@ -256,8 +258,9 @@ function selectfield($table,$campo,$id=NULL) {
 		return $variable;
 	} else {
 		echo "<p class=failure>Error al ejecutar query</p>";
-	  error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
+		error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
 	}
+	$mysqli->close();
 }
 
 ?>
