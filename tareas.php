@@ -2,7 +2,6 @@
 $error = array();
 class Tareas extends Objeto {
 
-	//public $tabla = 'tarea';
     public $userid = 0;
 
 	public function __construct($useridl) {
@@ -135,7 +134,6 @@ include('./scripts.php');
 				}
 				?>
 			</select>
-			<!--<input type="submit" value="Enviar">-->
 		</td></tr>
 	</table>
 </form>

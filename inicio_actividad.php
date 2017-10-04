@@ -34,14 +34,9 @@
 	
         public function obtener_fecha($userid) {
             if (isset($userid)) {
-               /* include('./conectar.php');
-                $query = "select fecha from inicio_actividad where userid=$userid";
-                if ($result = $mysqli->query($query)) {
-                    $row = $result->fetch_array()[0];
-                }*/
                 return selectfield($this->tabla,'fecha',$userid);
             }
         }
     }
-    $inicio_actividad = new InicioActividad();
+    
 ?>

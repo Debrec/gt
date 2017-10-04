@@ -121,9 +121,6 @@ if ($msg == 'add') {
 			echo "<p class=failure>Error al agregar actividad campos incorrectos</p>";
 		} 	
 	} else {
-		/*if (!$nombre) {
-			$error['nombre'] = 1;
-		}*/
 		if (!$texto) {
 			$error['descripcion'] = 1;
 		}

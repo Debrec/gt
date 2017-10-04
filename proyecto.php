@@ -2,9 +2,6 @@
 $error = array();
 class Proyecto extends Objeto {
 
-//private $tabla = 'proyecto';
-	//public $regpp = 6;
-
 	function __construct() {
 		parent::__construct($this->tabla,$this->regpp);
 	}

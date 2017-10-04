@@ -39,7 +39,6 @@ class Objeto {
     }
 
 	public function editar($id,$campos) {
-		//include('./conectar.php');
 		if($campos && isset($this->tabla)) {
 			$i=0;
 			$variables = '';
@@ -61,11 +60,9 @@ class Objeto {
 		} else {
 			echo "<p class=failure>¡Error al procesar el formulario!</p>";
 		}
-		//$mysqli->close();
 	}
 
 	public function agregar($campos) {
-		//include('./conectar.php');
 		if(isset($campos) && isset($this->tabla)) {
 			$i=0;
 			$variables = '';
@@ -99,12 +96,10 @@ class Objeto {
 		} else {
 			echo "<p class=failure>¡Error al agregar el comentario!</p>";
 		}
-		//$mysqli->close();
 	}
 
 	public function get($numpag,$campos,$where='') {
 		$offset = ($numpag-1) * $this->regpp;
-		//include('./conectar.php');
 		$i = 0;
 		$variables = '';
 		$valores = '';
@@ -146,7 +141,6 @@ class Objeto {
 			echo "<p class=failure>Error al ejecutar query : $query</p>";
 	  		error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
 		}
-		//$mysqli->close();
 	}
 
 	public function mostrar($numpag,$campos,$where='',$textos=null) {

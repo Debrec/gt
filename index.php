@@ -92,6 +92,8 @@
 	<?php 
 		$useridl = asignar($_SESSION,'userid');
 		include("./msql.php");
+        include('inicio_actividad.php');
+        $inicio_actividad = new InicioActividad();
 		include('./lateral.php');	
 	?>
 </div>

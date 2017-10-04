@@ -1,5 +1,4 @@
 <?php
-	include('inicio_actividad.php');
 	if ($msg == 'reset') {
         $inicio_actividad->inicio_actividad($useridl);
 	}	

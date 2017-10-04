@@ -1,23 +1,30 @@
 html {
 	background-color:#503333;
-	/*background-image: url('./images/Pure-mathematics-formulæ-blackboard.jpg');*/
 }
 
 span#fi {color:#0055FF}
 
-body {/*background-image: url('./images/Estrellas.jpg');*/ width: 1000px;margin:auto /*background-color:#503333;*/}
+body {width: 1000px;margin:auto }
 
-div.sub {background-color:#331515; margin-top:20px; margin-bottom:20px;/*margin:20px 20px 20px 20px ;*/ width:1000px; padding-top:20px; padding-bottom:20px;
+div.sub {
+    background-color:#331515; 
+    margin-top:20px; margin-bottom:20px; 
+    width:1000px; 
+    padding-top:20px; padding-bottom:20px;
 	opacity: 0.9;
 	filter: alpha(opacity=90);
 }
 
-div.sup {background-color:#331515; padding-top:10px; padding-bottom:10px; padding-left:10px; margin-top:20px; margin-bottom:20px; /*margin:20px 20px 20px 20px*/ ; width:990px;
+div.sup {
+    background-color:#331515; 
+    padding-top:10px; padding-bottom:10px; padding-left:10px; 
+    margin-top:20px; margin-bottom:20px;  
+    width:990px;
 	opacity: 0.9;
 	filter: alpha(opacity=90);
 }
 
-div.body {/*background-image: url('./images/Estrellas.jpg');*//* background-color:#503333;*/ /*margin: 20px 20px 20px 20px;*/ width:1000px;}
+div.body {width:1000px;}
 
 div.blanco div.center p {
 		text-align: center;
@@ -38,35 +45,42 @@ tr.green {color: green;}
 
 #cabecera_actividad th {width: 100px; text-align:right;}
 
-h1 {margin-right:0;	margin-left:0;margin-bottom:1;
+h1 {
+    margin-right:0;	margin-left:0;margin-bottom:1;
     font-style:normal;
 	color:#0055FF;
-    /*color:#5015CC;*/
     text-align:center;
     font-size:24pt;
-    font-weight:normal;}
+    font-weight:normal;
+    }
 
-h2 {margin-right:0;	margin-left:0;margin-bottom:1;
-		    font-style:normal;
-				color:#3377FF;
-		    /*color:#5015CC;*/
-		    text-align:center;
-		    font-size:18pt;
-		    font-weight:normal;}
+h2 {
+    margin-right:0;	margin-left:0;margin-bottom:1;
+    font-style:normal;
+	color:#3377FF;
+	text-align:center;
+	font-size:18pt;
+	font-weight:normal;
+}
 
-h1.subt {margin-right:0;	margin-left:15px;margin-bottom:0px;
-	  font-style:normal;
-		color:#0055FF;
-    /*color:#5015CC;*/
+h1.subt {
+    margin-right:0;	margin-left:15px;margin-bottom:0px;
+	font-style:normal;
+	color:#0055FF;
     text-align:left;
     font-size:22pt;
-    font-weight:normal;}
+    font-weight:normal;
+}
 
-p  {margin-right:15px;margin-left:15px;margin-top:3px;
-		margin-bottom:3px;
+p  {
+    margin-right:15px;
+    margin-left:15px;
+    margin-top:3px;
+	margin-bottom:3px;
     text-align:justify;	color:#DDDDFF;
     font-family:'Times New Roman','Arial',serif,sans-serif;
-    font-size:15pt;}
+    font-size:15pt;
+}
 
 p.succes {
 		text-align: left;
@@ -83,19 +97,22 @@ p.failure {
 }
 
 
-ul li {margin-right:15px;margin-left:15px;margin-top:3px;
-       margin-bottom:3px;
-       color:#DDDDFF;
+ul li {
+        margin-right:15px;margin-left:15px;margin-top:3px;
+        margin-bottom:3px;
+        color:#DDDDFF;
     	font-family:'Times New Roman','Arial',serif,sans-serif;
     	font-size:15pt;
-		}
+}
 
 p.fecha {color:#FF0000;}
 
-span.p {margin-right:0px;margin-left:15px;
+span.p {
+    margin-right:0px;margin-left:15px;
     text-align:justify;	color:#DDDDFF;
     font-family:'Times New Roman','Arial',serif,sans-serif;
-    font-size:12pt;}
+    font-size:12pt;
+}
 
 .centrado {text-align:center;}
 
@@ -117,16 +134,14 @@ form {margin-left:20%; margin-right:20%; background-color:#808080; }
 form.login {
     background: none repeat scroll 0 0 #F1F1F1;
     border: 1px solid #DDDDDD;
-    /*margin: auto;*/
-    /*padding: 20px;*/
-		position: absolute;
-		top:50%;
-		left:50%;
-		width:250px;
-		margin-left:-125px;
-		height:150px;
-		margin-top:-85px;
-		padding:5px;
+	position: absolute;
+	top:50%;
+	left:50%;
+	width:250px;
+	margin-left:-125px;
+	height:150px;
+	margin-top:-85px;
+	padding:5px;
 }
 
 form.login label {
@@ -136,14 +151,11 @@ form.login label {
 form.login div {
 	margin-top:10px;
 }
+
 /* Matemática */
 div.lateral {
 	font-family:'Times New Roman','Arial',serif,sans-serif;
-	/*background-color: #FFFFFF;*/
 	background-color:#331515;
-	/*margin:20px 20px 20px 20px ;
-*/
-	/*padding-top:20px; padding-bottom:20px;*/
 	float: left;
 	width:180px;
 	margin-right: 20px;
@@ -157,10 +169,7 @@ div.blanco span.error {size:12; color:red;}
 
 div.blanco {
 	font-family:'Times New Roman','Arial',serif,sans-serif;
-	/*background-color: #FFFFFF;*/
 	background-color:#331515;
-	/*margin:20px 20px 20px 20px ;
-*/
 	padding-top:20px; padding-bottom:20px;
 	padding-left:20px; padding-right:20px;
 	float: left;
@@ -170,14 +179,21 @@ div.blanco {
 }
 
 div.blanco h1 {
-	font-size:30pt;text-align:center; color: gray; /* color:#FF0000;*/ font-weight:normal; text-decoration:underline;  font-family:'Times New Roman';
+	font-size:30pt;text-align:center; color: gray; font-weight:normal; 
+    text-decoration:underline;  font-family:'Times New Roman';
 }
 
-div.blanco h2 {font-size:20pt;text-align:left; color:#0000FF; font-weight:normal; text-decoration:underline;text-indent: 5pt;}
+div.blanco h2 {
+    font-size:20pt;text-align:left; color:#0000FF; font-weight:normal; 
+    text-decoration:underline; text-indent: 5pt;
+}
 
-div.blanco p {text-indent: 20pt; font-size:16pt; color: white;/*color:#000000;*/text-align:justify;}
+div.blanco p {
+    text-indent: 20pt; font-size:16pt; color: white;
+    text-align:justify;
+}
 
-div.blanco p a.simb {font-family:'Symbol'; color:white;/*color:#000000;*/}
+div.blanco p a.simb {font-family:'Symbol'; color:white;}
 a.rojo {color:#FF0000;}
 h1 a.simb {font-size:32px;color:#FF0000;}
 div.blanco p.centrado {text-align:center;}
