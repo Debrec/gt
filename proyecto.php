@@ -3,7 +3,7 @@ $error = array();
 class Proyecto extends Objeto {
 
 	function __construct() {
-		parent::__construct($this->tabla,$this->regpp);
+		parent::__construct(TABLAS::PROYECTOS);
 	}
 
 	public function agregar($nombre,$comentario=null) {

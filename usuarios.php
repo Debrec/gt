@@ -2,7 +2,7 @@
 class Usuarios extends Objeto {
 
 	function __construct() {
-		parent::__construct($this->tabla);
+		parent::__construct(TABLAS::USUARIOS);
 	}
 
 	public function agregar($nombre,$apellido=null,$email=null,$password=null) {

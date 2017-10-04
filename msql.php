@@ -138,8 +138,8 @@ class Objeto {
 				return $objetos;				
 			} 
 		} else {
-			echo "<p class=failure>Error al ejecutar query : $query</p>";
-	  		error_log("ERROR: Could not execute $query. " . $mysqli->error,0);
+			echo "<p class=failure>Error al ejecutar query</p>";
+	  		error_log("ERROR: Could not execute $query. " . $this->mysqli->error,0);
 		}
 	}
 

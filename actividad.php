@@ -185,4 +185,3 @@ echo '<form name="fcont" method="post"
 	fechahora(<?php echo "\"fin\",".$fechaArrStr.",".($fechafin ? "\"".$fechafin."\"" : "\"".$curf."\"").",".($horafin ? $horafin : $curh).",".($minfin ? $minfin : $curm).",".($secfin ? $secfin : $curs) ?>);	
 </script>
 
-
