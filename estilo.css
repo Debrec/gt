@@ -2,11 +2,9 @@ html {
 	background-color:#503333;
 }
 
-span#fi {color:#0055FF}
-
 body {width: 1000px;margin:auto }
 
-div.sub {
+/*div.sub {
     background-color:#331515; 
     margin-top:20px; margin-bottom:20px; 
     width:1000px; 
@@ -22,17 +20,19 @@ div.sup {
     width:990px;
 	opacity: 0.9;
 	filter: alpha(opacity=90);
-}
+}*/
 
-div.body {width:1000px;}
+/*div.body {width:1000px;}*/
 
 div.blanco div.center p {
 		text-align: center;
 }
 
-#status {
+span#fi {color:#0055FF}
+
+/*#status {
 	width="100%";
-}
+}*/
 
 table {
 	background-color:#331515;
@@ -40,8 +40,8 @@ table {
 	border: thin none #003366;
 }
 
-tr.blue {color: blue;}
-tr.green {color: green;}
+/*tr.blue {color: blue;}
+tr.green {color: green;}*/
 
 #cabecera_actividad th {width: 100px; text-align:right;}
 
