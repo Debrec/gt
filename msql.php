@@ -145,7 +145,7 @@ class Objeto {
 
 	public function mostrar($numpag,$campos,$where='',$textos=null) {
 		$objetos = $this->get($numpag,$campos,$where);
-		if (count($objetos) > 0) {
+		if (isset($objetos) && count($objetos) > 0) {
 			echo "<tr>";
 			if (!isset($textos)) {
 				$textos = $this->getTexts();
