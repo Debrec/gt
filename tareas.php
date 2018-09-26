@@ -122,9 +122,9 @@ include('./scripts.php');
 			<select name="status" onchange="this.form.submit()">
 				<?php
 				$vars = array();
-				$vars[0] = "Tarea Sin Comenzar";
-				$vars[1] = "Tarea Comenzada";
-				$vars[2] = "Tarea Finalizada";
+				$vars[0] = "Tareas Sin Comenzar";
+				$vars[1] = "Tareas Comenzadas";
+				$vars[2] = "Tareas Finalizadas";
 				$vars[4] = "Todas las tareas";
 				if (!isset($status)) {
 					$status = 4;
