@@ -145,12 +145,31 @@ form.login {
 }
 
 form.login label {
+	text-align: left;
 	margin-right: 5px;
+	display: block;
 }
 
 form.login div {
 	margin-top:10px;
 }
+
+form.login input[type=password] {
+	width:230px;
+}
+
+form.login input[type=email] {
+	width:230px;
+}
+
+
+/*label.login {
+	text-align:right;
+}
+
+input.login {
+	
+}*/
 
 /* Matemática */
 div.lateral {
@@ -202,12 +221,4 @@ div.blanco img.centrado {text-align:center;}
 span.error {
 	font-size:10pt;
 	color:red;
-}
-
-label.login {
-	text-align:right;
-}
-
-input.login {
-	
 }

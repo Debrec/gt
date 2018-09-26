@@ -79,7 +79,7 @@
 	 <?php } ?>
 	 <span ng-show="fcont.user.$error.email">Dirección de e-mail invalida</span>
 	</div>
-    <div><label class="login">Password</label><input class="login" size="30px"name="password" type="password"></div>
+    <div><label class="login">Password</label><input class="login" size="30px" name="password" type="password"></div>
     <div><input name="login" type="submit" value="login"></div>
 </form>
 <?php
